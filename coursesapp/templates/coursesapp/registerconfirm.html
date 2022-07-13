@@ -1,0 +1,47 @@
+{% extends './base.html' %}
+{% load courses_custom_tags %}
+
+{% block title %}
+    Account Created Successfully
+{% endblock title %}
+
+
+
+{% block content %}
+<br>
+<br>
+
+<div class="container">
+    <h3 class="text-center">Thanks for Registering with us</h3>
+    <hr>
+    <br>
+    <div class="row mx-auto">
+
+        <div class="col-md-2 col-sm-1"></div>
+        <div class="col-md-8 col-sm-10 m-auto">
+
+            <div class="alert alert-info">
+                Hi <strong>{{request.user.first_name}}</strong>, <br>
+                Your account created successfully. <br> <strong class="text-danger bold"> Please remember the roll for login next time </strong><br>
+                <p>AAP ROLL : <strong>{{request.user.username}}</strong> </p>
+                <br>
+
+                <a class="btn btn-warning btn-sm"href="{% url 'profile' %}">Profile</a>  <a class="btn btn-warning btn-sm"href="/courses">All Courses</a>
+                
+                
+            </div>
+
+        </div>
+        <div class="col-md-2 col-sm-1"></div>
+        </div>
+
+        
+  
+     
+  
+
+</div>
+
+
+  
+{% endblock content %}

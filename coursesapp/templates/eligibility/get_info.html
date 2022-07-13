@@ -1,0 +1,476 @@
+{% extends '../coursesapp/base.html' %}
+{% load crispy_forms_tags %}
+{%load static%}
+
+
+
+
+{% block title %}
+Check Admission Eligibility - AAP
+{% endblock title %}
+
+
+{% block share %}
+<meta property="og:url" content="https://www.aapathshala.com/adinfo" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Info & Eligibility Checker-AAP" />
+<meta property="og:description"
+    content="শিক্ষায়, চর্চায় ও সহযোগিতায় পাশে আছি আমরা । প্রবেশ করো তোমার স্বপ্ন ছোঁয়ার কোর্সে" />
+<meta property="og:image" content="https://www.aapathshala.com{% static 'images/eligibility.png' %}" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="350" />
+
+{% endblock %}
+
+{%block content %}
+
+<style>
+    body{
+        background:#F0F4FA;
+    }
+    .form-group {
+        padding: 0.4rem 0;
+    }
+    .headline{
+            color: #FBF4F5 !important;
+    background: #176BEF !important;
+    padding-bottom: 2px;
+    padding-top: 10px;
+    max-width: 535px;
+    margin: 0 auto;
+    }
+    span.asteriskField {
+    display: none;
+}
+    .bg-aap-primary{
+        background: var(--primary-color) !important;
+    }
+    .my-n10 {
+    margin-top: -10px;
+}
+</style>
+
+
+{% if eligibity_checker.on or request.user.is_superuser %}
+<div>
+    
+         {% include 'eligibility/partials/admissionexam.html' %}
+<div class="container px-3 d-flex flex-column justify-content-center align-items-center">
+     
+
+
+    <div class="accordion col col-md-5 mt-2" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button d-block headline" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h4 class="text-center">Check Eligibility</h4>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                
+                 <div class="my-n10 text-center">
+                        <!-- Button trigger modal -->
+                        <span role="button" class="badge fw-normal bg-info cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            কিভাবে চেক করবো ?
+                        </span>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">কিভাবে চেক করবো ? </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-left">
+                                SSC GPA = তোমার SSC GPA লিখবে । যেমনঃ 5 <br>
+                                HSC GPA = তোমার HSC GPA লিখবে । যেমনঃ 5 <br>
+                                সাবজেক্ট ভিত্তিক GPA এর জন্য নিচের চার্ট অনুযায়ী GPA লিখবে <br>
+                                <table class="table table-striped bordered">
+                                    <tr>
+                                        <td>A+ </td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A </td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A- </td>
+                                        <td>3.5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>B </td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C </td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>D </td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>F </td>
+                                        <td>0</td>
+                                    </tr>
+                                </table>
+                              
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                               
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="form p-2 rounded-5 my-2">
+                    
+                     <form id="check-info-form" method="post">
+                        {% csrf_token %}
+            
+                        <div class="row">
+                            <div class="col-6">
+                                {{form1.ssc_gpa|as_crispy_field}}
+                            </div>
+                            <div class="col-6">
+                                {{form1.hsc_gpa|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                 
+                                
+                                {{form1.hsc_bio_gpa|as_crispy_field}}
+                                {{form2.physics_gpa|as_crispy_field}}
+                                
+                                  <div class="form-check form-switch pt-2 d-flex flex-column">
+                                      
+                                        <label style="margin-left: -2.5rem;" class="form-check-label text-primary" for="flexSwitchCheckDefault">Second Timer?</label>
+
+                                        <input style="width: 4.5rem;height: 2rem;" class="form-check-input" type="checkbox" id="id_allow_second_time">
+                                      </div>
+                            </div>
+                            <div class="col-6">
+                                {{form2.chemistry_gpa|as_crispy_field}}
+                                {{form2.hmath_gpa|as_crispy_field}}
+                                {{form2.english_gpa|as_crispy_field}}
+                            </div>
+                        </div>
+            
+                        <!-- error alert -->
+                        <br>
+                        <div id="alert-box" class="d-none alert alert-danger my-1 alert-dismissible w-100 fade show" role="alert">
+                            <p id="alerttext"></p>
+                            
+                        </div>
+            
+                        <input class="form-control btn btn-block bg-aap-primary text-white" type="submit" value="Check">
+            
+                    </form>
+            
+                </div>
+            </div>
+          </div>
+        </div>
+     
+    </div>
+
+    
+    
+
+    {% include "../coursesapp/loader.html" %}
+</div>
+
+<div id="resultbox">
+
+</div>
+
+
+
+
+
+<div class="container mx-auto">
+    
+    <!-- admission system overview -->
+        
+        {% for overview in admsysover %}
+        <div class="accordion accordion-flush my-3" id="accordionFlushExample{{ forloop.counter }}">
+                <h2 class="accordion-header" id="flush-heading{{ forloop.counter }}">
+            <button class="accordion-button accordion-button headline d-block text-center btn-outline-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="flush-collapse{{ forloop.counter }}">
+              <h5 class="text-center">{{overview.name}}</h5>
+            </button>
+          </h2>
+        
+        <div class="">
+          <div id="flush-collapse{{ forloop.counter }}" class="accordion-collapse bg-light col col-md-8 mx-auto shadow-sm collapse" aria-labelledby="flush-heading{{ forloop.counter }}" data-bs-parent="#accordionFlushExample{{ forloop.counter }}">
+            <div class="accordion-body">
+              {{overview.details|safe}}
+            </div>
+          </div>
+        </div>
+     
+      </div>
+        
+      
+      {%endfor%}
+
+    
+      <br>
+        
+  
+
+
+
+
+       <!-- admission details info -->
+        <h2 class="accordion-header">
+            <button class="accordion-button accordion-button headline d-block text-center btn-outline-primary text-center" type="button">
+              <h4 class="text-center">Admission Details Info</h4>
+            </button>
+        </h2>
+        
+   
+       <ul class="nav nav-pills my-3 justify-content-center" id="pills-tab" role="tablist">
+           {% for info in admissiondetailsinfo %}
+         <li class="nav-item" role="presentation">
+           <button class="border border-primary mx-1 nav-link {% if forloop.first %} active{%endif%}" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-{{info.name}}" type="button" role="tab" aria-controls="pills-{{info.name}}" aria-selected="true">{{info.name}}</button>
+         </li>
+        
+         {%endfor%}
+       </ul>
+ 
+       <div class="bg-light mb-3 p-2 col col-md-8 mx-auto shadow-sm tab-content" id="pills-tabContent">
+         {% for info in admissiondetailsinfo %}
+ 
+         <div class="tab-pane fade {% if forloop.first %}show active{%endif%}" id="pills-{{info.name}}" role="tabpanel" aria-labelledby="pills-{{info.name}}-tab">
+             {{info.details|safe}}
+ 
+         </div>
+        
+ 
+ 
+         {%endfor%}
+       </div>
+ 
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+{%else%}
+    
+    <h3 class="text-center my-5 py-4">The page is in development process. Wait until it unlock ðŸ˜€ </h3>
+ {%endif %}
+
+
+
+{%endblock content %}
+
+{% block js %}
+<script>
+    // document.addEventListener("DOMContentLoaded", function(){
+    //         $('input[type=number]').val('');
+    //         $('input[type=number]').attr("placeholder", "Enter GPA");
+           
+    //     });
+   
+
+    // Loader
+    const loader = document.getElementById('loader');
+    loader.classList.add('d-none');
+
+
+    const info_form = document.getElementById('check-info-form');
+    const resultbox = document.getElementById('resultBox');
+    const alertBox = document.getElementById('alert-box');
+    const alertText = document.getElementById('alerttext');
+
+
+    
+
+
+
+
+    // console.log(csrf);
+
+    const url1 = "{% url 'check_eligibility' %}";
+
+    info_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const ssc_gpa = document.getElementById('id_ssc_gpa');
+        const hsc_gpa = document.getElementById('id_hsc_gpa');
+
+        const hsc_bio_gpa = document.getElementById('id_hsc_bio_gpa');
+        const physics_gpa = document.getElementById('id_physics_gpa');
+        const chemistry_gpa = document.getElementById('id_chemistry_gpa');
+        const hmath_gpa = document.getElementById('id_hmath_gpa');
+        const english_gpa = document.getElementById('id_english_gpa');
+        
+
+        const allow_second_time = document.getElementById('id_allow_second_time').checked ? true : false;
+    
+        const csrf = document.getElementsByName('csrfmiddlewaretoken');
+        
+        const grades = ['0','1.0','1.00','01','2','02','2.0','2.00','3','03','3.0','3.00','3.5','3.50','4','04','4.0','4.0','5','05','5.00','5.0'];
+        
+        const subjectgpa = new FormData()
+        subjectgpa.append('hsc_bio_gpa', hsc_bio_gpa.value);
+        subjectgpa.append('physics_gpa', physics_gpa.value);
+        subjectgpa.append('chemistry_gpa', chemistry_gpa.value);
+        subjectgpa.append('hmath_gpa', hmath_gpa.value);
+        subjectgpa.append('english_gpa', english_gpa.value);
+        for(let sub of subjectgpa.entries()){
+            if(grades.includes(sub[1]) == false){
+                const field = sub[0].replace(/_/g, ' ').toUpperCase();
+                
+                $('#alerttext').html(`Enter Your correct GPA for ${field}
+                <br>Remember Subjectwise GPA : A+=5,A=4,A-=3.5,B=3,C=2,D=1,F=0`);
+                 if (alertBox.classList.contains('d-none')) {
+                    alertBox.classList.remove('d-none');
+                }
+
+                return;
+            }
+            
+        }
+
+
+        const fd = new FormData()
+        fd.append('csrfmiddlewaretoken', csrf[0].value);
+        fd.append('ssc_gpa', ssc_gpa.value);
+        fd.append('hsc_gpa', hsc_gpa.value);
+
+        fd.append('hsc_bio_gpa', hsc_bio_gpa.value);
+        fd.append('physics_gpa', physics_gpa.value);
+        fd.append('chemistry_gpa', chemistry_gpa.value);
+        fd.append('hmath_gpa', hmath_gpa.value);
+        fd.append('english_gpa', english_gpa.value);
+
+
+        // authentication
+        // console.log(fd);
+        // console.log(fd.entries());
+        let validate = gpaValidation(fd)
+
+        console.log(allow_second_time)
+        fd.append('allow_second_time', allow_second_time);
+
+
+        function gpaValidation(gpaData) {
+
+            
+            for (let entry of gpaData.entries()) {
+                
+
+                if (entry[0] != 'csrfmiddlewaretoken') {
+
+                    if (entry[1] >= 0 && entry[1] <= 5) {
+
+
+
+                    }
+                    else {
+                        return false;
+
+                    }
+                }
+                
+            }
+            return true;
+
+        }
+
+        if (validate == true) {
+
+            // console.log("Entered to ajax")
+            // console.log(fd)
+
+            $.ajax({
+
+                type: 'POST',
+                url: url1,
+                data: fd,
+                beforeSend: function () {
+                    loader.classList.remove('d-none');
+                },
+                success: function (response) {
+                    if (response.error) {
+                        // console.log("success", response.errormsg);
+                        $('#alerttext').html(response.errormsg);
+
+                        if (alertBox.classList.contains('d-none')) {
+                            alertBox.classList.remove('d-none');
+                        }
+
+                    }
+                    else {
+                        $('#resultbox').html(response.result_box);
+
+                        if (alertBox.classList.contains('d-none')) {
+                            // console.log("success 1");
+
+
+                        }
+                        else {
+
+                            alertBox.classList.add('d-none');
+                            // console.log("success 2");
+                        }
+
+
+
+                    }
+
+                    // hide loader
+                    setTimeout(function () {
+                        loader.classList.add('d-none');
+                    }, 500)
+
+
+                },
+                error: function (error) {
+                    console.log(error);
+                    $('#alerttext').html(error);
+                    alertBox.classList.remove('d-none');
+
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+
+            })
+        }
+        else {
+
+            $('#alerttext').text("Please Enter a Valid GPA. Remember SSC,HSC GPA Should Be 0-5 Point");
+
+            if (alertBox.classList.contains('d-none')) {
+                alertBox.classList.remove('d-none');
+            }
+
+
+
+
+        }
+
+
+
+    })
+</script>
+
+{% endblock js %}

@@ -1,0 +1,136 @@
+{% extends './base.html' %}
+{% load courses_custom_tags %}
+{% load static %}
+
+{% block title %}
+    AAP-{{course.name}}
+{% endblock title %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/scrollbar.css' %}">
+<link rel="stylesheet" href="{% static 'css/course.css' %}">
+
+  
+{% endblock css %}
+
+
+
+{% block content %}
+
+
+<style>
+    .nopreview{
+        cursor: not-allowed;
+    }
+    .accordion-button:after {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+</style>
+
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h5>Course Modules</h5>
+        </div>
+        {% is_enrolled request course as enrolled %}
+        {%if not enrolled%}
+        <a href="{% url 'checkout' course.slug %}" class="btn btn-warning d-block my-1 mx-2">Enroll Now</a>
+
+        
+        {%endif%}
+        <a href="{% url 'checkout' course.slug %}" class="btn btn-success d-block my-1 mx-2">Download Routine</a>
+
+
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+           
+            {% for section in sections %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                  {{section.title}}
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+              
+                  
+                    {% for q in section.quiz_set.all %}
+                    
+                       
+                        <ul id="lecture_list" class="list-group">
+                            <li class="list-group-item"> <a class="text-decoration-none" href="">{{q.title}}</a></li>
+
+                        </ul>
+                    
+                    {% endfor %}
+
+               
+              </div>
+            </div>
+           
+            {%endfor%}
+
+
+        </div>
+       
+
+        
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+              
+
+                <button type="button" id="sidebarCollapse" class="btn btn-sm btn-warning">
+                    <span id="toggle-arrow" class="d-md-none">></span>
+                    <span id="toggle-btn">Show Routine</span>
+                </button>
+             
+
+                
+            </div>
+        </nav>
+
+        <div class="col">
+            <div>
+            <iframe id="player" width="100%" height="315" src="{{video.video_url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block js %}
+<!-- (w*9)/16 -->
+<script src="{% static 'js/course_page.js' %}"></script>
+<script>
+    $(document).ready(function () {
+
+            if($('#sidebar').hasClass('active')){
+                    $("#toggle-btn").text('Show Routine')
+                }
+                else {
+                    $("#toggle-btn").text('Hide Routine')
+                }
+            
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                if($('#sidebar').hasClass('active')){
+                    $("#toggle-btn").text('Show Routine')
+                }
+                else {
+                    $("#toggle-btn").text('Hide Routine')
+                }
+            });
+        });
+</script>
+  
+{% endblock js %}

@@ -1,0 +1,169 @@
+{% load courses_custom_tags %}
+<div class="container">
+    <div class="text-center my-2">
+         {%is_enrolled request course as enrolled %}
+            {% if enrolled %}
+                  {%if lecture.qns %}
+                     <a class="btn btn-sm btn-info mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{lecture.qns}}" folder-name="{{lecture.title}}">QNS</a>
+                    {%endif%}
+            
+           
+                    {%if lecture.examresults_set.all %}
+                    <div class="btn-group">
+                      <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                        Result
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+                          {% for examresult in lecture.examresults_set.all%}
+                        <li><a class="dropdown-item" href="{{examresult.pdf.url}}">{{examresult.title}}</a></li>
+                        {%endfor%}
+                      
+                      </ul>
+                    </div>
+               
+                {%endif%}
+            {%endif%}
+    </div>
+    
+    
+    
+    
+
+    <div class="row">
+        
+      
+          {% if lecture.coursematerials_set.all %}
+          
+          {% for coursematerials in lecture.coursematerials_set.all|dictsort:"serial_number" %}
+          
+            <div class="{%if coursematerials.single_row %}col-12 {%else%} col-6 {%endif%} col-md-6">
+             <div class="lecture-details">
+
+           
+                <div class="card mb-2">
+               
+                         <a class="d-block" href="?week={{week.id}}&embaded=cmaterials&id={{coursematerials.id}}">
+                    <h5 style="width: 100%;" class="card-header text-center">
+                       
+                   
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          {{coursematerials}}
+                       
+
+                        
+                    </h5>
+                     </a>
+        
+                   
+                </div>
+        
+            
+              
+
+                
+            
+               
+
+            </div>
+        </div>
+      
+            
+          {%endfor%}
+            
+          {%endif%}
+          
+          
+          
+          <!--Course Videos-->
+     
+          {% if lecture.coursevideos_set.all %}
+          
+          {% for coursevideos in lecture.coursevideos_set.all|dictsort:"serial_number" %}
+          
+            <div class="{%if coursevideos.single_row %}col-12 {%else%} col-6 {%endif%} col-md-6">
+             <div class="lecture-details">
+
+           
+                <div class="card mb-2">
+               
+                         <a class="d-block" href="?week={{week.id}}&embaded=coursevideos&id={{coursevideos.id}}">
+                    <h5 style="width: 100%;" class="card-header text-center">
+                       
+                   
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          {{coursevideos}}
+                       
+
+                        
+                    </h5>
+                     </a>
+        
+                   
+                </div>
+        
+            
+              
+
+                
+            
+               
+
+            </div>
+        </div>
+      
+            
+          {%endfor%}
+            
+          {%endif%}
+        
+        
+        
+        {% for liveexam in lecture.liveexam_set.all|dictsort:"serial_number" %}
+        <div class="{%if liveexam.single_row %}col-12 {%else%} col-6 {%endif%} col-md-6">
+             <div class="lecture-details">
+
+           
+                <div class="card mb-2">
+               
+                         <a class="d-block" href="?week={{week.id}}&exam=live&id={{liveexam.id}}">
+                    <h5 style="width: 100%;" class="card-header text-center{% if liveexam.is_active is True %} animated-button {%endif%}">
+                       
+                   
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          {{liveexam}}
+                       
+
+                        
+                    </h5>
+                     </a>
+        
+                   
+                </div>
+        
+            
+              
+
+                
+            
+               
+
+            </div>
+        </div>
+        {%endfor%}
+            {% if lecture.lecture_notice %}
+        <p class="text-center">
+            {{lecture.lecture_notice|safe}}
+        </p>
+        {%endif%}
+    </div>
+</div>
+

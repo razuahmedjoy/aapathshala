@@ -1,0 +1,816 @@
+{% extends './base.html' %}
+{% load courses_custom_tags %}
+{% load static %}
+
+{% block title %}
+    AAP-{{course.name}}
+{% endblock title %}
+
+{% block css %}
+
+
+<link rel="stylesheet" href="{% static 'css/course.css' %}">
+
+  
+{% endblock css %}
+
+{% block share %}
+<meta property="og:url" content="{{ request.get_full_path }}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{course.name}}" />
+<meta property="og:description"
+    content="শিক্ষায়, চর্চায় ও সহযোগিতায় পাশে আছি আমরা । প্রবেশ করো তোমার স্বপ্ন ছোঁয়ার কোর্সে" />
+<meta property="og:image" content="https://aapathshala.com{{course.thumbnail.url}}" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="350" />
+
+{% endblock share %}
+
+{% block content %}
+
+<style>
+
+    .nopreview{
+        cursor: not-allowed;
+    }
+    .week-active{
+        background: var(--primary-color);
+        color: #fff !important;
+    }
+    #watchonyoutube{
+           max-width: 250px;
+    }
+    
+    .animated-button {
+  background: linear-gradient(-30deg, #FE3050 50%, #FE3050 50%);
+  display: inline-block;
+  -webkit-transform: translate(0%, 0%);
+          transform: translate(0%, 0%);
+  overflow: hidden;
+  font-size: 20px;
+  letter-spacing: 2.5px;
+  text-align: center;
+  text-decoration: none;
+  
+}
+
+.animated-button::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #FE3050;
+  opacity: 0;
+  -webkit-transition: .2s opacity ease-in-out;
+  transition: .2s opacity ease-in-out;
+}
+
+.animated-button:hover::before {
+  opacity: 0.2;
+}
+
+.animated-button span {
+  position: absolute;
+}
+
+.animated-button span:nth-child(1) {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 4px;
+  background: -webkit-gradient(linear, right top, left top, from(rgba(8, 20, 43, 0)), to(#2662d9));
+  background: linear-gradient(to left, rgba(8, 20, 43, 0), #2662d9);
+  -webkit-animation: 2s animateTop linear infinite;
+          animation: 2s animateTop linear infinite;
+}
+
+@-webkit-keyframes animateTop {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+@keyframes animateTop {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+.animated-button span:nth-child(2) {
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 4px;
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 20, 43, 0)), to(#2662d9));
+  background: linear-gradient(to top, rgba(8, 20, 43, 0), #2662d9);
+  -webkit-animation: 2s animateRight linear -1s infinite;
+          animation: 2s animateRight linear -1s infinite;
+}
+
+@-webkit-keyframes animateRight {
+  0% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
+@keyframes animateRight {
+  0% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
+.animated-button span:nth-child(3) {
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 4px;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(8, 20, 43, 0)), to(#2662d9));
+  background: linear-gradient(to right, rgba(8, 20, 43, 0), #2662d9);
+  -webkit-animation: 2s animateBottom linear infinite;
+          animation: 2s animateBottom linear infinite;
+}
+
+@-webkit-keyframes animateBottom {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+
+@keyframes animateBottom {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+
+.animated-button span:nth-child(4) {
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 4px;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 20, 43, 0)), to(#2662d9));
+  background: linear-gradient(to bottom, rgba(8, 20, 43, 0), #2662d9);
+  -webkit-animation: 2s animateLeft linear -1s infinite;
+          animation: 2s animateLeft linear -1s infinite;
+}
+
+@-webkit-keyframes animateLeft {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+}
+
+@keyframes animateLeft {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+}
+
+.animated-button1 {
+  background: linear-gradient(-30deg, #FE3050 50%, #FE3050 50%);
+
+  display: inline-block;
+  -webkit-transform: translate(0%, 0%);
+          transform: translate(0%, 0%);
+  overflow: hidden;
+  color: #FE3050;
+  font-size: 20px;
+  letter-spacing: 2.5px;
+  text-align: center;
+  text-decoration: none;
+ 
+}
+
+.animated-button1::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #ad8585;
+  opacity: 0;
+  -webkit-transition: .2s opacity ease-in-out;
+  transition: .2s opacity ease-in-out;
+}
+
+.animated-button1:hover::before {
+  opacity: 0.2;
+}
+
+.animated-button1 span {
+  position: absolute;
+}
+
+.animated-button1 span:nth-child(1) {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 4px;
+  background: -webkit-gradient(linear, right top, left top, from(rgba(43, 8, 8, 0)), to(#d92626));
+  background: linear-gradient(to left, rgba(43, 8, 8, 0), #d92626);
+  -webkit-animation: 2s animateTop linear infinite;
+          animation: 2s animateTop linear infinite;
+}
+
+@keyframes animateTop {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+.animated-button1 span:nth-child(2) {
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 4px;
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(43, 8, 8, 0)), to(#d92626));
+  background: linear-gradient(to top, rgba(43, 8, 8, 0), #d92626);
+  -webkit-animation: 2s animateRight linear -1s infinite;
+          animation: 2s animateRight linear -1s infinite;
+}
+
+@keyframes animateRight {
+  0% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
+.animated-button1 span:nth-child(3) {
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 4px;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(43, 8, 8, 0)), to(#d92626));
+  background: linear-gradient(to right, rgba(43, 8, 8, 0), #d92626);
+  -webkit-animation: 2s animateBottom linear infinite;
+          animation: 2s animateBottom linear infinite;
+}
+
+@keyframes animateBottom {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+
+.animated-button1 span:nth-child(4) {
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 4px;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(43, 8, 8, 0)), to(#d92626));
+  background: linear-gradient(to bottom, rgba(43, 8, 8, 0), #d92626);
+  -webkit-animation: 2s animateLeft linear -1s infinite;
+          animation: 2s animateLeft linear -1s infinite;
+}
+
+@keyframes animateLeft {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+}
+
+</style>
+
+
+
+
+
+
+
+
+<div class="">
+    
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar" style="position: relative;">
+            <div class="sidebar-header">
+                <a href="{% url 'coursepage' course.slug %}">{{course.name}}</a>
+            </div>
+            
+            {% is_enrolled request course as enrolled %}
+            {%if not enrolled%}
+            <a href="{% url 'checkout' course.slug %}" class="btn primary-color d-block my-1 mx-2">Enroll Now</a>
+    
+            {%endif%}
+            
+            
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <div class="accordion-item bg-success">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <a class="btn btn-success d-block my-1 mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Download Routine
+                  </a>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                  <div class="">
+                      {% if course.routine_set.all %}
+                      <ul class="list-group">
+                          
+                          {% for routine in course.routine_set.all %}
+                          <li class="list-group-item"><a href="{{routine.routinefile.url}}">{{routine.title}}</a></li>
+                          {% endfor %}
+                         
+                      </ul>
+                       {%endif%}
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+            
+         
+    
+    
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+               
+                {% for section in sections %}
+                 <div class="accordion-item week-accordion">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <a style="border-radius: 0;" href="?week={{section.id}}" class="week-btn d-block {% if week == section %} week-active {% endif %}">
+                      {{section.title}}
+                    </a>
+                </h2>      
+                </div>
+               
+                {%endfor%}
+                {% if course.resource %}
+               <a href="{% if course.resource %}{{course.resource.url}} {%else%}#{%endif%}" class="btn btn-success d-block my-1 mx-2">Course Plan</a>
+               {%endif%}
+    
+            </div>
+      
+          
+    
+            
+        </nav>
+    
+        <!-- Page Content  -->
+        <div id="content">
+    
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+    
+                  
+                    
+                    <button type="button" id="sidebarCollapse" class="btn btn-sm btn-warning">
+                        <span id="toggle-btn-mbl" class="d-md-none">Show Topics</span>
+                        <span id="toggle-btn">Show Topics</span>
+                    </button>
+                    
+                    {%if exam is not None %}
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#xmproblem">
+        সমস্যা:পরীক্ষা শুরু হয়না
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="xmproblem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Follow Instruction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                           <iframe width="100%" height="550" src="https://www.youtube.com/embed/5PdW9HQ9aU4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%endif%}
+                    
+                    {%if exam or cmaterials or vmaterials %}
+                    <a href="{% url 'coursepage' slug=course.slug %}?week={{week.id}}" class="btn btn-dark btn-sm">Back</a>
+                    
+                    
+                    {% elif week %}
+                       
+                        {% if course.examcourse is True%}
+                            
+                            
+                            
+                            <div class="align-items-center d-flex gap-2 justify-content-center mx-auto my-1">
+                          {% for section in sections %}
+                          <a class="btn btn-outline-danger btn-sm {% if week == section %} week-active {% endif %}" href="?week={{section.id}}">{{section.title}}</a>
+                          {% endfor %}
+                          </div>
+                          
+                          
+                          
+                          
+                          
+                       
+                          
+                          
+        
+                        {%else %}
+                            
+                               <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-sm primary-color" data-bs-toggle="modal" data-bs-target="#direction">
+                             {{week.title}}- Direction
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="direction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{week}}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                   {{week.direction|safe}}
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            
+                        {%endif%}
+                                     
+                    {%else%}
+              
+                    
+                     {% if course.examcourse is True%}
+                            
+                            
+                            
+                            <div class="align-items-center d-flex gap-2 justify-content-center mx-auto my-1">
+                          {% for section in sections %}
+                          <a class="btn btn-outline-danger btn-sm {% if week == section %} week-active {% endif %}" href="?week={{section.id}}">{{section.title}}</a>
+                          {% endfor %}
+                          </div>
+                    {%endif %}
+                    
+               
+            
+                    {%endif%}
+                 
+    
+                    
+                </div>
+            </nav>
+
+            {%if exam is not None %}
+          
+            
+            <div class="col" style="height: 100vh;">
+          {% include "./loader.html" %}
+
+                <iframe SameSite="None" class="sm-75" id="iframe" src="{{exam.examurl}}"  style="width:100%; height:80%; border:none; margin:0; padding:0; z-index:999999;" >
+                   
+                </iframe>
+
+            
+            </div>
+
+            <!-- Course Materials -->
+            {% elif cmaterials is not None %}
+            {% include "./loader.html" %}
+            <div class="col" style="height: 100vh;">
+            <iframe id="iframe" src="https://drive.google.com/embeddedfolderview?id={{cmaterials.url}}" style="width:100%; height:600px; border:0;"></iframe>
+        </div>
+
+
+        <!-- Course Videos -->
+            {% elif vmaterials is not None %}
+
+            {% include "./loader.html" %}
+            <iframe id="iframe" class="vplayer" width="100%" height="360" src="https://www.youtube.com/embed/videoseries?list={{vmaterials.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      
+        <p class="alert alert-info">
+                      ক্লাস ভিডিওতে একাধিক ভিডিও রয়েছে। প্রদর্শিত ভিডিও এর উপরের ডানপাশের কোনায় প্লেলিস্ট আইকনে <svg height="45px" version="1.1" viewBox="0 0 36 36" width="45px"><use class="ytp-svg-shadow" xlink:href="#ytp-id-22"></use><path d="m 22.53,21.42 0,6.85 5.66,-3.42 -5.66,-3.42 0,0 z m -11.33,0 9.06,0 0,2.28 -9.06,0 0,-2.28 0,0 z m 0,-9.14 13.6,0 0,2.28 -13.6,0 0,-2.28 0,0 z m 0,4.57 13.6,0 0,2.28 -13.6,0 0,-2.28 0,0 z" fill="#000" id="ytp-id-22"></path></svg> ক্লিক করে বাকি ভিডিওগুলো দেখতে পারবে। প্লেলিস্টের প্রথম ভিডিওগুলোর সহায়তায় প্রস্তুতি নিবে,তবে এতে গ্যাপ থাকলে  বা না বুঝলে শেষর ভিডিওগুলো দেখবে ।
+                      <br>
+                      ✔️যাদের এখানে ভিডিও দেখতে অসুবিধা তারা নিচের লিঙ্কে ক্লিক করে সরাসরি ইউটিউব থেকে দেখতে পারবেঃ           </p>
+                  
+                <a id="watchonyoutube" href="https://www.youtube.com/playlist?list={{vmaterials.url}}" target="_blank" class="border border-danger btn btn-danger d-block mt-3 mb-3 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="20" viewBox="0 0 256 256" xml:space="preserve" class="mx-3">
+<desc>Created with Fabric.js 1.7.22</desc>
+<defs>
+</defs>
+<g transform="translate(128 128) scale(0.72 0.72)" style="">
+	<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(-175.05 -175.05000000000004) scale(3.89 3.89)">
+	<path d="M 88.119 23.338 c -1.035 -3.872 -4.085 -6.922 -7.957 -7.957 C 73.144 13.5 45 13.5 45 13.5 s -28.144 0 -35.162 1.881 c -3.872 1.035 -6.922 4.085 -7.957 7.957 C 0 30.356 0 45 0 45 s 0 14.644 1.881 21.662 c 1.035 3.872 4.085 6.922 7.957 7.957 C 16.856 76.5 45 76.5 45 76.5 s 28.144 0 35.162 -1.881 c 3.872 -1.035 6.922 -4.085 7.957 -7.957 C 90 59.644 90 45 90 45 S 90 30.356 88.119 23.338 z" style="stroke: none;stroke-width: 1;stroke-dasharray: none;stroke-linecap: butt;stroke-linejoin: miter;stroke-miterlimit: 10;fill: rgb(255 255 255);fill-rule: nonzero;opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"></path>
+	<polygon points="36,58.5 59.38,45 36,31.5 " style="stroke: none;stroke-width: 1;stroke-dasharray: none;stroke-linecap: butt;stroke-linejoin: miter;stroke-miterlimit: 10;fill: rgb(255 0 0);fill-rule: nonzero;opacity: 1;" transform="  matrix(1 0 0 1 0 0) "></polygon>
+</g>
+</g>
+</svg>Watch on youtube</a>
+
+
+            {%elif week is not None %}
+
+            <!-- Week Details -->
+
+            {% for lecture in week.lecture_set.all|dictsort:"serial_number" %}
+                    
+                
+                <h4 class="card text-center primary-color p-2 rounded my-2">{{lecture.title}}</h4>
+                
+                
+                {% if course.examcourse is True%}
+                
+                {% include "coursesapp/partials/examcourse.html" %}
+
+                {%else %}
+                {% include "coursesapp/partials/course-week-all.html" %}
+                {%endif%}
+
+                <hr>
+                <br>
+                
+
+                <!-- <ul id="lecture_list" class="list-group">
+                    <li class="list-group-item {%if quiz == q %} active-video{%endif %}"> <a class="text-decoration-none" href="?section={{section.id}}&quiz={{q.id}}">{{q.title}}</a></li>
+
+                </ul> -->
+            
+            {% endfor %}
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="iframe" style="width: 100%;height: 60vh;" src="" frameborder="0"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    
+                </div>
+                </div>
+            </div>
+            </div>
+            
+ 
+             {% include "./loader.html" %}
+           
+            
+
+
+            {%else%}
+
+            <div class="row">
+              <div class="col-md-6">
+                {%if video is not None %}
+                
+                <iframe id="player" class="vplayer" width="100%" height="380" src="https://www.youtube.com/embed/{{video.video_url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
+                
+                {%else%}
+                <img class="img-fluid img-responsive" src="{{course.thumbnail.url}}" alt="{{course.name}}">
+                
+
+
+                {%endif%}
+                </div>
+                  {% is_enrolled request course as enrolled %}
+                    {%if not enrolled%}
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                  
+                    <a href="{% url 'checkout' course.slug %}" class="bg-gradient-enroll btn mx-2 my-1 px-5 py-2 py-md-3 rounded-pill">Enroll Now</a>
+            
+                    
+                </div>
+                {%endif%}
+            </div>
+             <!-- course details -->
+
+    <div class="mt-3">
+        <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{course.name}}</h4>
+            
+            <p class="card-text">{{course.description|safe}}</p>
+            
+        </div>
+        </div>
+          {% is_enrolled request course as enrolled %}
+            {%if not enrolled%}
+        <div class="d-flex justify-content-center">
+          
+            <a href="{% url 'checkout' course.slug %}" class="bg-gradient-enroll btn mx-2 my-1 px-5 py-2 rounded-pill">Enroll Now</a>
+    
+            
+        </div>
+        {%endif%}
+    
+    
+        <!-- Prerequisite -->
+        <br>
+       
+    
+        <!-- What you will learn -->
+        <br>
+        
+        </div>
+            {%endif%}
+        </div>
+    </div>
+    
+   
+
+
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block js %}
+<!-- (w*9)/16 -->
+<script type="text/javascript">
+
+    
+var player;
+var lecture_list;
+document.onreadystatechange = function() {
+    if(document.readyState == 'interactive'){
+        player = document.querySelector('.vplayer');
+        
+        maintainRatio();
+    }
+}
+
+
+
+function maintainRatio() {
+
+    console.log({
+        width:player.width,
+        cw : player.clientWidth,
+        h : player.height,
+        ch: player.clientHeight,
+    });
+    var w = player.clientWidth;
+    var h = (w*9)/18;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      // true for mobile device
+      var h = (w*9)/14;
+    }else{
+      // false for not mobile device
+      var h = (w*9)/20;
+    }
+    
+    console.log({w,h});
+    player.height = h;
+    
+
+}
+
+window.onresize = maintainRatio;
+
+</script>
+<script>
+
+    
+
+    $(document).ready(function () {
+
+            if($('#sidebar').hasClass('active')){
+                    $("#toggle-btn").text('Show Topics')
+                    $("#toggle-btn-mbl").text('Hide Topics')
+                }
+                else {
+                    $("#toggle-btn").text('Hide Topics')
+                    $("#toggle-btn-mbl").text('Show Topics')
+                }
+            
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                if($('#sidebar').hasClass('active')){
+                    $("#toggle-btn").text('Show Topics')
+                    $("#toggle-btn-mbl").text('Hide Topics')
+                }
+                else {
+                    $("#toggle-btn").text('Hide Topics')
+                    $("#toggle-btn-mbl").text('Show Topics')
+                }
+            });
+        });
+
+     
+</script>
+{%if exam or cmaterials or vmaterials%}
+<script type="text/javascript">
+    const iframe = document.getElementById('iframe');
+    const loader = document.getElementById('loader');
+
+    iframe.addEventListener('load',function(){
+        loader.classList.add('d-none');
+    })
+</script>
+{%else%}
+    <script type="text/javascript">
+        var exampleModal = document.getElementById('exampleModal')
+        var iframe = document.getElementById('iframe');
+        const loader = document.getElementById('loader');
+    loader.classList.add('d-none');
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+      // Button that triggered the modal
+        loader.classList.remove('d-none');
+
+      var button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      var linkid = button.getAttribute('data-bs-whatever');
+      var folderinfo = button.getAttribute('folder-name');
+    
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+      //
+      // Update the modal's content.
+    
+      var src = "https://drive.google.com/embeddedfolderview?id="+linkid;
+      iframe.src = src;
+
+      var modalTitle = exampleModal.querySelector('.modal-title')
+      
+      modalTitle.innerText = folderinfo;
+    
+      iframe.addEventListener('load',function(){
+            loader.classList.add('d-none');
+
+        })  
+      
+    })
+            </script>
+{%endif %}
+
+
+{% endblock js %}
+
+ {% block livechat %}
+
+{%endblock%}

@@ -1,0 +1,48 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+
+ {% block title %}
+Update Profile-AAPathshala
+{% endblock title %}
+
+
+{% block content %}
+<div class="container forms">
+
+      <style>
+       .studentupdate div{
+           margin-bottom: 20px;
+       }
+   </style>
+
+
+    {% if messages %}
+
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    <br>
+    <form class="form studentupdate" method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class="form-control btn bg-danger text-white" type="submit" value="Update">
+
+    </form>
+    
+    <div class="alert alert-info my-2 text-center text-justified">
+        প্রিয় শিক্ষার্থী, তোমার SSC Roll , HSC Roll এবং Registration নাম্বার এই তিনটি তথ্যের কোনটি সংশোধন করতে হলে আমাদের পারসোনাল কেয়ারে জানাতে হবে। প্রমাণ এর জন্য তোমার HSC Admit কার্ডের ছবিসহ পারসোনাল কেয়ারে জানাবে।
+        <a href="javascript:void(Tawk_API.toggle())">Personal Care</a>
+        
+    </div>
+
+</div>
+
+
+{% endblock content %}

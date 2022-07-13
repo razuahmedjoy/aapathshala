@@ -1,0 +1,129 @@
+{% extends '../coursesapp/base.html' %}
+
+
+{% block title %}
+    {{barta.title}}-Pathshala Barta
+{% endblock title %}
+
+{% block share %}
+    
+    <meta property="og:url" content="https://www.aapathshala.com/barta/{{barta.category}}/{{barta.id}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{barta.title}}" />
+    <meta property="og:description"
+        content="{{barta.seo_description}}" />
+    <meta property="og:image" content="https://www.aapathshala.com{{barta.cover_picture.url}}" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="350" />
+
+{%endblock%}
+
+{%block header %}
+   {% include "../barta/bartaheader.html" %}
+  {%endblock header %}
+
+{%block content %}
+
+<style>
+    @font-face {
+      font-family: 'SutonnyOMJunicode';
+      src: url('https://www.aapathshala.com/static/fonts/SutonnyOMJunicode.ttf') format("truetype");
+    }
+    
+    img.card-img-top.img-fluid.barta-img {
+    max-height: 350px;
+}
+
+.single-news{
+    font-family: 'SutonnyOMJunicode', sans-serif;
+}
+.news-box{
+    display: flex;
+    align-items: center;
+    border: .5px solid #dcd7d7;
+    margin: 5px 0;
+    padding: 10px;
+}
+.news-box a.news-img{
+    width: 220px;
+    height: auto;
+    padding: .75rem;
+    align-items: center;
+}
+
+@media (max-width:600px) {
+    .news-text h2{
+            font-size: calc(.95rem + .25vw);
+    margin-bottom: 0;
+    font-weight: bold;
+    }
+    .news-text span{
+        font-size:.60rem;
+        margin: 0;
+        padding:0;
+    }
+    .news-text p{
+        font-size:14px;
+    }
+}
+
+@media (min-width:768px) {
+    .md-f-20 {
+    font-size: 20px;
+    }
+    
+}
+</style>
+<div class="container mt-5 single-news">
+    <div class="row">
+        <div class="col-lg-8 my-3">
+            <div style="display: flex;justify-content: space-between;">
+            <a href="{% url 'bartahome' %}" class="btn mb-3 btn-sm bg-dark text-light">Back</a>
+            <div class="dropdown d-lg-none">
+              <button class="btn btn-dark text-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                   {% for category in categories %}
+                                 <li><a class="dropdown-item" href="{% url 'categorypost' catslug=category.slug %}">{{category.name}}</a></li>
+                             
+                                {%endfor%}
+               
+                
+              </ul>
+            </div>
+            </div>
+
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">{{barta.title}}</h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2">Posted on {{barta.created_at}}</div>
+                    <!-- Post categories-->
+                    <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'categorypost' catslug=barta.category.slug %}">{{barta.category}}</a>
+                   
+                </header>
+                <!-- Preview image figure-->
+                <figure class="mb-4"><img class="img-fluid rounded" src="{{barta.cover_picture.url}}" alt="{{barta.title}}" /></figure>
+                <!-- Post content-->
+                <section class="mb-5 md-f-20">
+                    <p style="
+    font-size: 1.25em;
+">
+                        {{barta.description|safe}}
+                    </p>
+                    
+                </section>
+            </article>
+            <!-- Comments section-->
+        
+        </div>
+        <!-- Side widgets-->
+        {% include '../barta/sidebar.html' %}
+    </div>
+</div>
+
+{%endblock content %}

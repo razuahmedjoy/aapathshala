@@ -1,0 +1,186 @@
+{% extends '../coursesapp/base.html' %}
+
+
+{% block title %}
+    {{category.name}}-Pathshala Barta
+{% endblock title %}
+
+{%block header %}
+   {% include "../barta/bartaheader.html" %}
+  {%endblock header %}
+
+{%block content %}
+
+
+<style>
+    
+    @font-face {
+      font-family: 'SutonnyOMJunicode';
+      src: url('https://www.aapathshala.com/static/fonts/SutonnyOMJunicode.ttf') format("truetype");
+    }
+    img.card-img-top.img-fluid.barta-img {
+    max-height: 350px;
+}
+.news-box{
+    display: flex;
+    align-items: center;
+    border: .5px solid #dcd7d7;
+    margin: 5px 0;
+    padding: 10px;
+    font-family: 'SutonnyOMJunicode', sans-serif;
+    
+}
+.font-sutonny{
+    font-family: 'SutonnyOMJunicode', sans-serif;
+}
+
+a, .news-title {
+    color: #000;
+    text-decoration: none !important;
+    padding-top: 1rem;
+}
+.news-box a.news-img{
+    width: 220px;
+    height: auto;
+    padding: .75rem;
+    align-items: center;
+}
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 100%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  
+  width: 450px !important;
+
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+@media (max-width:600px) {
+    .news-text h2{
+        font-size: calc(.95rem + .25vw);
+    margin-bottom: 0;
+    font-weight: bold;
+    }
+    .news-text span{
+        font-size:.60rem;
+        margin: 0;
+        padding:0;
+    }
+    .news-text p{
+        font-size:14px;
+    }
+}
+</style>
+<div class="container">
+    <div class="row">
+        
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            <div style="display: flex;justify-content: space-between;">
+            <a href="{% url 'home' %}" class="btn mb-3 btn-sm bg-dark text-light">Home</a>
+             <div class="dropdown d-lg-none">
+              <button class="btn btn-dark text-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                   {% for category in categories %}
+                                 <li><a class="dropdown-item" href="{% url 'categorypost' category.slug %}">{{category.name}}</a></li>
+                             
+                                {%endfor%}
+               
+                
+              </ul>
+            </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-md-12 col-sm-12" >
+                    <div class="row">
+                    {% for barta in barta %}
+                      <div class="col-md-6">
+                                      <div class="leftcolumn">
+                                <div class="card">
+                                        <h6 class="fw-normal">{{barta.category}}, {{barta.created_at}}
+                                    </h6>
+                                   <a class="news-img" href="{% url 'singlepost' catslug=barta.category.slug id=barta.id %}">
+                                  <img class="img-fluid fakeimg" style="height:200px;" src="{{barta.cover_picture.url}}"/>
+                                   </a>
+                                    <a class="news-img" href="{% url 'singlepost' catslug=barta.category.slug id=barta.id %}">
+                                        <h4 class="news-title text-center">{{barta.title}}</h4>
+                                    </a>
+                                
+                                   
+                                      <!--<p>{{barta.description|truncatewords:20|safe}}</p>-->
+                                    </div>
+                               
+                          </div>
+                            
+                        </div>
+                    
+                    
+                    
+                
+                 
+                    {%endfor%}
+                   
+                   </div>
+              
+               
+                 
+                </div>
+               
+            </div>
+            <!-- Pagination-->
+            <!-- <nav aria-label="Pagination">
+                <hr class="my-0" />
+                <ul class="pagination justify-content-center my-4">
+                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                    <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                    <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                </ul>
+            </nav> -->
+        </div>
+        <!-- Side widgets-->
+        {% include '../barta/sidebar.html' %}
+    </div>
+</div>
+
+{%endblock content %}

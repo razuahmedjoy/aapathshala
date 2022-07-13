@@ -1,0 +1,32 @@
+
+<style>
+    .category-items:hover{
+        background: #e9ecef;;
+    }
+</style>
+<div class="col-lg-4">
+            <!-- Search widget-->
+         
+            <!-- Categories widget-->
+            <div class="card mb-4 fixed-category d-none d-lg-block">
+                <div class="card-header category-bar">Categories</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="list-unstyled mb-0">
+                                {% for category in categories %}
+                                <li class="list-group-item category-items"><a class="text-decoration-none" href="{% url 'categorypost' catslug=category.slug %}">{{category.name}}</a></li>
+                          
+                                {%endfor%}
+                                
+                                      <li class="list-group-item category-items"><a class="text-decoration-none" href="{% url 'all_notice' %}">All Notice</a></li>
+                            
+                            </ul>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+            <!-- Side widget-->
+        
+        </div>

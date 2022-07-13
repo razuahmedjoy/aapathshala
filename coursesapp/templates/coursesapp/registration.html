@@ -1,0 +1,192 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}
+    Registration
+{% endblock title %}
+
+{%block css %}
+<link rel="stylesheet" href="{% static 'css/registration.css' %}">
+
+{%endblock css %}
+
+
+
+{% block content %}
+
+
+<section style="
+    background: none;
+">
+    <div class="container">
+     
+     
+
+        {% if otpsent %}
+        
+        <div class="user signupBx">
+            <div class="formBx">
+              <form action="?action=verify" method="POST">
+                  {% csrf_token %}
+                <p class="alert alert-info">We have send a verification code to your number. Please enter the code and verify</p>
+                <br>
+                <label for="contact_no">Your Mobile No.</label> : <strong>{{contact_no}}</strong> <br>
+               
+                <br><br>
+
+                <input hidden type="number" id="otp" name="otp" value="{{otp}}"/>
+                <input hidden type="number" id="contact_no" name="contact_no" value="{{contact_no}}"/>
+                <input hidden type="text" id="fname" name="fname" value="{{fname}}"/>
+                
+                <label for="userotp">Enter the Code Below</label>
+                <input type="number" name="userotp" autofocus required/>
+                {%if invalidotp %}
+                <small class="text-danger">Invalid OTP. Please check and enter again</small><br>
+                {%endif%}
+                <input type="submit" value="Verify" />
+                
+                <div>
+                  <p id="text-otp" class="text-sm">If you don't recieve otp , 
+                    <button id="sendotpagain" class="btn btn-warning btn-sm">Send Again</button>
+                  </p>
+                </div>
+            
+              </form>
+            </div>
+           
+          </div>
+          <script>
+              
+    
+            $(document).ready(function() {
+             var myTimer, timing = 300;
+                $('#sendotpagain').html(timing);
+                $('#sendotpagain').css({"pointer-events":"None","background-color": "#de8470"});
+                myTimer = setInterval(function() {
+                  --timing;
+                  $('#sendotpagain').html('Resend after ('+timing+') sec');
+                  if (timing === 0) {
+                    $('#sendotpagain').html('Resend Now');
+                    clearInterval(myTimer);
+              
+                    $('#sendotpagain').css({"pointer-events":"","background-color" :"var(--primary)"});
+                  }
+                }, 1000);
+        
+        });
+           
+    
+    
+          </script>
+
+        {%else %}
+        
+        
+        {% if settings.registration is False %}
+        
+          <div class="text-center">
+            Site is in maintainced mode. Try again later<br>
+            -AAP
+        </div>
+
+    
+        {%else%}
+        
+          <div class="user signupBx">
+        <div class="formBx">
+          <form id="register1" action="?action=sendotp" method="POST">
+              {% csrf_token %}
+            <h2>Registration with AAP</h2>
+            {% if error %}
+            <br>
+            <span class="text-danger">{{error}}</span>
+
+            {%endif%}
+
+            <br>
+            <label for="username">Your Full Name</label>
+            <input id="fname" type="text" name="fname" required placeholder="Full Name"/>
+            
+
+            <label for="contact_no">Enter Your Mobile No.</label>
+
+            <input type="number" name="contact_no" placeholder="0123XXXXX" required/>
+           
+            <input type="submit" name="" value="Send OTP" />
+            <p class="signup">
+              Already have an account ?
+              <a href="{% url 'login' %}" >Sign in.</a>
+            </p>
+          </form>
+        </div>
+       
+      </div>
+     {% include "../coursesapp/loader.html" %}
+     
+     <script>
+         // Loader
+        const loader = document.getElementById('loader');
+        loader.classList.add('d-none');
+        document.getElementById("register1").addEventListener('submit',function(){
+            loader.classList.remove('d-none');
+        })
+     </script>
+        
+      
+        {%endif%}
+        
+      {%endif%}
+    </div>
+  </section>
+
+  
+{% endblock content %}
+
+{%block js%}
+
+<script type="text/javascript">
+  var btn = document.getElementById('sendotpagain');
+  var otp = document.getElementById('otp');
+  var otptext = document.getElementById('text-otp');
+  var loader = document.getElementById('loader');
+ 
+
+  
+  btn.addEventListener('click', function(e) {
+     
+
+  
+    let contact_no = document.getElementById('contact_no').value;
+     
+
+      $.ajax({
+      
+      type: "POST",
+      url: "{% url 'registration' %}",
+      data: {
+          'contact_no': contact_no,
+          'csrfmiddlewaretoken': '{{csrf_token}}',
+      },
+
+      success: function (response) {
+          
+           
+            otp.value = response;
+            otptext.innerText = "NEW OTP SENT.."
+            console.log(response)
+          
+            
+
+          
+      },
+      failure: function (e) {
+          console.log(e)
+      }
+
+
+      })
+
+    })
+</script>
+
+{% endblock js %}

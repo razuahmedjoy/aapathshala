@@ -1,0 +1,151 @@
+{% load static %}
+{% load getstudent_from_request %}
+<style>
+    .header-btn {
+    padding: 5px;
+    border: .5px solid;
+    margin: 5px;
+    border-radius: 10%;
+    text-align:center;
+    background: #FE3050;
+    
+    
+}
+.nav-log-link a{
+    text-decoration:none;
+    color:#fff;
+}
+.nav-log-link a span{
+    color:#fff;
+    background: #FE3050;
+}
+</style>
+
+    <nav style="
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+" class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'bartahome' %}">
+    <img class="img-fluid" src="{% static 'images/barta.svg' %}" style="
+    width: 180px;
+"/>
+    </a>
+ 
+
+    <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+    <!--  <span class="navbar-toggler-icon"></span>-->
+    <!--</button>-->
+    <div class="collapse navbar-collapse" id="navbarNav">
+   
+     
+    </div>
+    
+    {% if request.user.is_authenticated %}
+    
+    <div class="dropdown">
+     {% getStudentFromRequest request as student %}
+      {% if student.profile_pic %}
+      <img class="dropdown-toggle rounded-circle profile-pic" src="{{student.profile_pic.url}}" width="40" alt="{{student.aaproll}}" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"/>
+      {% else %}
+      <img class="dropdown-toggle" width="30px" src="{% static 'images/avatar.png' %}" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"/>
+      {%endif%}
+        
+      
+    
+      <ul class="dropdown-menu shadow-sm" aria-labelledby="dropdownMenuLink" style="
+    right: 0;
+    left: inherit;
+">
+        <div class="">
+             
+                  <p class="card-body text-center p-1" style="
+    background: #000033 !important;
+    color: #fff;
+">Hi, {{request.user.first_name}}
+                  <br>Roll: {{request.user.username}}
+                  </p>
+                
+    <li class="list-group-item"><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+    <li class="list-group-item"><a class="dropdown-item" href="{% url 'profileupdate' %}">Edit Profile</a></li>
+    <li class="list-group-item"><a class="dropdown-item" href="{% url 'profilepicupdate' %}">Update Photo</a></li>
+    <li class="list-group-item"><a class="dropdown-item" href="{% url 'mycourses' %}">My courses</a></li>
+    <li class="list-group-item"><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+                
+                                   
+                                
+        </div>
+      </ul>
+    </div>
+    
+    {%else%}
+    
+    <div class="flex items-center nav-log-link">
+          <a href="{% url 'login' %}" class="
+              flex
+              items-center
+              space-x-1
+              rounded-xl
+              text-brand-light
+              hover:bg-brand-shade hover:text-brand-light
+              rounded-full
+              font-medium
+              p-2.5
+              
+            ">
+              
+           <svg xmlns="http://www.w3.org/2000/svg" style="
+    height: 26px;
+    color: #FD3E3F;
+    border: solid 1px;
+    border-radius: 50%;
+    padding: 2px;
+" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+    
+          <span class="header-btn d-none d-md-inline">Log In</span>
+          </a>
+          <a href="{% url 'registration' %}" class="
+              text-sm
+              bg-brand-light
+              font-medium
+              rounded-full
+              header-btn">Sign Up</a>
+        
+    </div>
+    
+    {%endif%}
+     <!--<ul class="navbar-nav ms-auto">-->
+        
+     <!--   {% if request.user.is_authenticated %}-->
+     <!--   <li class="nav-item">-->
+     <!--     <a class="nav-link" href="{% url 'mycourses' %}">My Courses</a>-->
+     <!--   </li>-->
+       
+       
+     <!--   <li class="nav-item dropdown">-->
+     <!--     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+     <!--       Hi, {{request.user.first_name}}-->
+     <!--     </a>-->
+     <!--     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+     <!--       <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>-->
+     <!--       <li><a class="dropdown-item" href="{%url 'logout' %}">Logout</a></li>-->
+     <!--     </ul>-->
+     <!--   </li>-->
+      
+     
+     <!--   {%else%}-->
+     <!--   <li class="nav-item">-->
+     <!--     <a class="nav-link header-btn" href="{% url 'login' %}">Login</a>-->
+     <!--   </li>-->
+     <!--   <li class="nav-item">-->
+     <!--     <a class="nav-link header-btn" href="{% url 'registration' %}">Sign up</a>-->
+     <!--   </li>-->
+     <!--   {%endif%}-->
+        
+        
+       
+     <!-- </ul>-->
+  </div>
+</nav>

@@ -1,0 +1,21 @@
+/pathshalaenv
+db.sqlite3
+/files
+/static
+/lmsproject/settings_prod.py
+/lmsproject/settings_dev.py
+/lmsproject/__pycache__
+/lmsproject/*/__pycache__
+/eligibility_check/__pycache__
+/eligibility_check/*/__pycache__
+/eligibility_check/migrations
+/coursesapp/__pycache__
+/coursesapp/*/__pycache__
+/barta/__pycache__
+/barta/*/__pycache__
+/coursesapp/migrations
+/barta/migrations
+
+
+
+# did some changes in main by joy

@@ -1,0 +1,275 @@
+{% load admission_exam_times %}
+
+<style>
+    thead.table-dark {
+    --bs-table-bg: #111732 !important;
+}
+.table-success {
+    --bs-table-bg: #D6D6D6 !important;
+    --bs-table-striped-bg: #fff !important;
+}
+.bg-aap-ash{
+    background:#D6D6D6;
+}
+th{
+    font-weight:normal !important;
+}
+td{
+   
+    vertical-align: middle!important;
+
+}
+</style>
+<!-- admission EXAM DETAILS -->
+<br>
+<h4 class="fw-bold text-center">ভর্তি পরীক্ষার সময়সূচী</h4>
+<ul class="nav nav-pills my-3 justify-content-center" id="pills-tab" role="tablist">
+   
+<li class="nav-item" role="presentation">
+    <button class="border border-primary px-2 py-1 nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button" role="tab" aria-controls="pills-info" aria-selected="true">তথ্য</button>
+</li>
+<li class="nav-item" role="presentation">
+    <button class="border border-primary px-2 py-1 mx-1 nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-exam-time" type="button" role="tab" aria-controls="pills-exam-time" aria-selected="true">তারিখসমূহ</button>
+</li>
+<li class="nav-item" role="presentation">
+    <button class="border border-primary px-2 py-1 mx-1 nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-Application" type="button" role="tab" aria-controls="pills-Application" aria-selected="true">আবেদন</button>
+</li>
+<li class="nav-item" role="presentation">
+    <button class="border border-primary px-2 py-1 mx-1 nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-Admit" type="button" role="tab" aria-controls="pills-Admit" aria-selected="true">এডমিট</button>
+</li>
+<li class="nav-item" role="presentation">
+    <button class="border border-primary px-2 py-1 nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-Result" type="button" role="tab" aria-controls="pills-Result" aria-selected="true">ফলাফল</button>
+</li>
+
+
+</ul>
+
+<div class="tab-content mb-3 text-center" id="pills-tabContent">
+
+
+<div class="tab-pane fade col col-md-6 mx-auto" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab">
+ 
+    <!-- Exam TIme table -->
+    <table class="table table-success table-sm table-striped text-center table-bordered">
+        <thead class="table-dark">
+          <tr>
+           
+            <th scope="col">Name</th>
+            <th scope="col">Marks</th>
+            
+            <th scope="col">2nd.T</th>
+            <th scope="col"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 20px;" ><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zM124 296c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h264c6.6 0 12 5.4 12 12v56c0 6.6-5.4 12-12 12H124z" fill="white"/></svg>
+            </th>
+            
+            <th scope="col"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="" style="
+    width: 20px;
+"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M400 0H48C22.4 0 0 22.4 0 48v416c0 25.6 22.4 48 48 48h352c25.6 0 48-22.4 48-48V48c0-25.6-22.4-48-48-48zM128 435.2c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm0-128c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm128 128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm0-128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm128 128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8V268.8c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v166.4zm0-256c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8V76.8C64 70.4 70.4 64 76.8 64h294.4c6.4 0 12.8 6.4 12.8 12.8v102.4z" class="text-light" fill="white"></path></svg></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          
+            {% for exam in admission_exams %}
+            {% if exam.marks %}
+            <tr>
+               
+                <td class="align-middle">{{exam.name}}</td>
+                <td><small>{{ exam.marks|safe }}</small></td>
+               
+               
+                 <td><small>{{exam.second_time}}</small></td>
+                <td><small>{{ exam.negative_marking|default_if_none:'' }}</small></td>
+                 <td><small>{{exam.calculator}}</small></td>
+                
+             
+
+                
+            </tr>
+            {%endif%}
+            {%endfor %}
+             
+            
+          
+     
+        </tbody>
+      </table>  
+
+</div>
+
+<div class="tab-pane fade show active col col-md-6 mx-auto" id="pills-exam-time" role="tabpanel" aria-labelledby="pills-exam-time-tab">
+ 
+    <!-- Exam TIme table -->
+    <table class="table table-success table-sm table-striped text-center table-bordered">
+        <thead class="table-dark">
+          <tr>
+           
+            <th scope="col">Name</th>
+            <th scope="col">Exam Date</th>
+            <th scope="col">Time Left</th>
+            <th scope="col">Syllabus</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          
+            {% for exam in admission_exams|dictsort:"exam_date_time" %}
+            {% if exam.exam_date_time %}
+            <tr>
+               
+                <td class="align-middle">{{exam.name}}</td>
+                <td><small>{{ exam.exam_date_time|date:"d F h A" }}</small></td>
+               
+               
+                <td><small>{% get_time_left exam.exam_date_time None %}</small></td>
+                 <td><small>{{exam.syllabus|default_if_none:""}}</small></td>
+                
+             
+
+                
+            </tr>
+            {%endif%}
+            {%endfor %}
+               
+               
+
+          
+     
+        </tbody>
+      </table>  
+
+</div>
+
+
+<div class="tab-pane fade  col col-md-6 mx-auto" id="pills-Application" role="tabpanel" aria-labelledby="pills-Application-tab">
+ 
+    <!-- application table -->
+    <table class="table table-success table-sm table-striped text-center table-bordered">
+        <thead class="table-dark">
+          <tr>
+           
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time Left</th>
+            <th scope="col">Fee</th>
+            <th scope="col">Apply</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            {% for exam in admission_exams|dictsort:"application_end_date" %}
+            {% if exam.application_start_date %}
+            <tr>
+               
+                <td class="align-middle">{{exam.name}}</td>
+                <td><small>{% get_date_range exam.application_start_date exam.application_end_date %}</small></td>
+               
+                <td><small>{% get_time_left exam.application_end_date exam.application_start_date %}</small></td>
+                <td><small>{{exam.fee|default_if_none:""}}</small></td>
+                
+                <td>
+                    <a href="{{exam.application_link|default_if_none:'#'}}" target="_blank"  class="badge badge-sm bg-primary rounded-pill border-0 fw-normal">
+                    Apply
+                    </a>
+                </td>
+
+                
+            </tr>
+            {%endif%}
+            {%endfor %}
+            
+          
+     
+        </tbody>
+      </table>  
+
+</div>
+
+<div class="tab-pane fade col col-md-6 mx-auto" id="pills-Admit" role="tabpanel" aria-labelledby="pills-Admit-tab">
+     
+    <!-- Admit table -->
+     <table class="table table-success table-sm table-striped text-center table-bordered">
+        <thead class="table-dark">
+          <tr>
+           
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time Left</th>
+            <th scope="col">Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            {% for exam in admission_exams %}
+            {% if exam.admit_card_start_date %}
+            <tr>
+               
+                <td class="align-middle">{{exam.name}}</td>
+                <td><small>{% get_date_range exam.admit_card_start_date exam.admit_card_end_date %}</small></td>
+               
+                <td><small>{% get_time_left exam.admit_card_end_date exam.admit_card_start_date%}</small></td>
+                
+                <td>
+                    <a href="{{exam.admit_card_link|default_if_none:'#'}}" target="_blank"  class="badge badge-sm bg-primary rounded-pill border-0 fw-normal">
+                    Download
+                    </a>
+                </td>
+
+                
+            </tr>
+            {%endif%}
+            {%endfor %}
+            
+          
+     
+        </tbody>
+      </table>
+
+</div>
+
+<div class="tab-pane fade col col-md-6 mx-auto" id="pills-Result" role="tabpanel" aria-labelledby="pills-Result-tab">
+   
+   
+    <!-- Result table -->
+   <table class="table table-success table-sm table-striped text-center table-bordered">
+    <thead class="table-dark">
+      <tr>
+       
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time Left</th>
+        <th scope="col">Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        {% for exam in admission_exams %}
+        {% if exam.result_date %}
+        <tr>
+           
+            <td class="align-middle">{{exam.name}}</td>
+            <td><small>{{exam.result_date|date:"d M"}}</small></td>
+           
+            <td><small>{% get_time_left exam.result_date None %}</small></td>
+            
+            <td>
+                <a href="{{exam.result_link|default_if_none:'#'}}" target="_blank"  class="badge badge-sm bg-primary rounded-pill border-0 fw-normal">
+                Result
+                </a>
+            </td>
+
+            
+        </tr>
+        {%endif%}
+        {%endfor %}
+        
+      
+ 
+    </tbody>
+  </table>
+
+</div>
+
+
+
+</div>
+    

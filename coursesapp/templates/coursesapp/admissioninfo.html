@@ -1,0 +1,51 @@
+{% extends './base.html' %}
+{%load static %}
+{% block title %}
+    Special Library
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/course.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+
+<style>
+    .bg-library{
+        
+    }
+</style>
+<section>
+
+
+
+<div class="container">
+    <div class="row">
+        
+        <div class="col-md-12">
+            <div class="library-box">
+                <div class="m-auto text-center">
+                    
+            
+        <h3 style="margin-top: 30px;font-weight: 700;">ভর্তি পরীক্ষার সকল তথ্য-২০২০</h3>
+   </div>        
+        {{setting.exam_details|safe}} 
+
+                    
+             
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+  </section>
+{% endblock content %}
+
+

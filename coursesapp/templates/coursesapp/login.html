@@ -1,0 +1,81 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+
+
+
+{% block content %}
+<div class="container m-auto">
+{% include "./loadernone.html" %}
+
+<div class="my-5 py-5">
+    <div class="card shadow" style="
+    max-width: 600px;
+    padding: 2rem;
+    margin: 0 auto;
+">
+
+      <form class="form" action="{% url 'login' %}" method="POST">
+          {% csrf_token %}
+        <h2 class="text-center">Login</h2>
+
+        {%if error %}
+
+        <p class="alert alert-danger">{{error}}</p>
+
+        {%endif %}
+        
+        {%if changedpass is True %}
+
+        <small class="text-success d-block text-sm">Password changed Successfully. Try to login</small>
+
+        {%endif %}
+
+
+        <br>
+
+        <label for="username">Enter Your Roll</label><br>
+        <input class="form-control" type="text" name="username" required placeholder="AAPXXXXX"><br>
+        <label for="username">Password</label><br>
+        <input class="form-control" type="password" name="password"><br>
+
+        
+        <br>
+        <input class="form-control btn primary-color" type="submit" value="Login"/>
+         <br><br>
+      <p>Forgot my password. <a class="text-decoration-none" href="{% url 'forgotpassword' %}">Reset Here</a></p>
+      <p>Forgot your Roll? <a class="text-decoration-none" href="{% url 'forgotroll' %}">Click Here</a></p>
+      <p>Don't Have a Roll Number? <a class="text-decoration-none" href="{% url 'registration' %}">Register Now!</a> It's Simple</p>
+      </form>
+    </div>
+
+
+</div>
+
+</div>
+
+
+  
+{% endblock content %}
+{% block js %}
+<script type="text/javascript">
+
+    var loader = document.getElementById('loader');
+    var alert = document.getElementById('alert');
+  
+    
+      document.addEventListener('submit', function(e) {
+        loader.classList.toggle('d-none');
+        
+    })
+        
+  
+  
+  </script>
+  
+        
+{% endblock js %}

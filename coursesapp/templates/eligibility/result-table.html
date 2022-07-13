@@ -1,0 +1,317 @@
+{% load your_gpa_marks %}
+<style>
+    thead.table-dark {
+    --bs-table-bg: #111732 !important;
+}
+.table-success {
+    --bs-table-bg: #D6D6D6 !important;
+    --bs-table-striped-bg: #fff !important;
+}
+.bg-aap-ash{
+    background:#D6D6D6;
+}
+th{
+    font-weight:normal !important;
+}
+</style>
+ <div class="container py-3">
+     {% if total_exam_for_you > 0 %}
+    <div class="align-items-center d-flex flex-column justify-content-center">
+      <p class="bg-aap-ash p-2 text-center text-dark">
+          তুমি বিজ্ঞান বিভাগের {{total_exam_for_you}} টি এবং বিভাগ পরিবর্তনের {{unit_change_total_xm}} টি পাবলিক ভর্তি পরীক্ষায় সর্বমোট {{total_sit_for_you}} টি সিটের বিরুদ্ধে ভর্তি যুদ্ধে অংশগ্রহণের প্রাথমিক সুযোগ পাবে।
+      </p>
+              <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gpaMarks">
+     ভর্তি পরিক্ষায় তোমার প্রাপ্ত GPA মার্কস
+    </button>
+    <br>
+    </div>
+    {%endif%}
+    
+    <!-- Modal -->
+    <div class="modal fade" id="gpaMarks" tabindex="-1" aria-labelledby="gpaMarksLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gpaMarksLabel">Your GPA MARKS</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <table class="table text-center table-striped table-bordered table-success table-sm">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Varsity</th>
+                  <th scope="col">Your Marks</th>
+                </tr>
+
+              </thead>
+              <tbody>
+                {% for clg in all_clgs_with_gpa %}
+                <tr>
+                  <td>{% if clg.gpa_table_name %}{{clg.gpa_table_name}} {%else%}{{clg.name}}{%endif%}</td>
+                  <td>{% your_gpa_marks ssc_gpa hsc_gpa clg.ssc_gpa_multiply clg.hsc_gpa_multiply%}</td>
+                </tr>
+                {% endfor %}
+                {% if gst %}
+                <tr>
+                  <td>JnU IU JUST HSTU CoU RuB</td>
+                  <td>{% your_gpa_marks ssc_gpa hsc_gpa 2 2%}</td>
+                </tr>
+                <tr>
+                  <td>JKKNIU</td>
+                  <td>{% your_gpa_marks ssc_gpa hsc_gpa 2.4 3.6%}</td>
+                </tr>
+                <tr>
+                  <td>MBSTU</td>
+                  <td>{% your_gpa_marks ssc_gpa hsc_gpa 0.4 0.6%}</td>
+                </tr>
+                <tr>
+                  <td>NSTU</td>
+                  <td>{% your_gpa_marks ssc_gpa hsc_gpa 6 4%}</td>
+                </tr>
+                <tr>
+                  <td>PUST</td>
+                  <td>{% your_gpa_marks ssc_gpa hsc_gpa 0.8 1.2%}</td>
+                </tr>
+                <tr>
+                  <td>PSTU</td>
+                  <td>{% your_gpa_marks ssc_gpa hsc_gpa 5 5%}</td>
+                </tr>
+                {% endif %}
+              </tbody>
+
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mx-1">
+        <div class="col-md-6">
+            <div class="eligible-list">
+                <div class="d-flex justify-content-center">
+                <h3 class=" btn btn-primary text-center">MAP Eligible</h3>
+                </div>
+                <div class="table-responsive">
+                <table class="table table-success table-sm table-striped text-center table-bordered">
+                    <thead class="table-dark">
+                      <tr>
+                       
+                        <th scope="col">Name</th>
+                        <th scope="col">Total Seat</th>
+                        <th scope="col">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if medical %}
+                        {%for med in medical %}
+                        <tr>
+                        
+                            <td>{{med.name}}</td>
+                            <td>{{med.total_sit}}</td>
+                            
+                            <td>
+                              <button id="showDetails" data-bs-toggle="modal" data-bs-target="#details" data-id="{{med.id}}" data-type="medical" class="badge badge-sm bg-primary rounded-pill border-0 fw-normal">
+                               Details
+                            </button>
+                          </td>
+                        </tr>
+                        {%endfor %}
+                      {%endif%}
+                 
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="eligible-list">
+                <div class="d-flex justify-content-center">
+                <h3 class="text-center btn btn-primary">EAP Eligible</h3>
+                </div>
+                <div class="table-responsive">
+                <table class="table table-success table-sm table-striped text-center table-bordered">
+                    <thead class="table-dark">
+                      <tr>
+                       
+                        <th scope="col">Name</th>
+                        <th scope="col">Total Seat</th>
+                        <th scope="col">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% if engineering %}
+                        {%for eng in engineering %}
+                        <tr>
+                        
+                            <td>{{eng.name}}</td>
+                            <td>{{eng.total_sit}}</td>
+                            <td>
+                                <button id="showDetails" data-bs-toggle="modal" data-bs-target="#details" data-id="{{eng.id}}" data-type="engineering" class="badge badge-sm bg-primary rounded-pill d-inline-block border-0 fw-normal">
+                                   Details
+                                </button>
+                                
+                            </td>
+                        </tr>
+                            
+                            
+                        {%endfor %}
+                      {%endif%}
+                     
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="eligible-list">
+                <div class="d-flex justify-content-center"><h3 class="btn btn-primary text-center">VAP Eligible</h3></div>
+                
+                <div class="table-responsive">
+                <table class="table table-success table-sm table-striped text-center table-bordered">
+                    <thead class="table-dark">
+                      <tr>
+                       
+                        <th scope="col">Name</th>
+                        <th scope="col">Total Seat</th>
+                        <th scope="col">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                        {% if versity %}
+                        {%for vrst in versity %}
+                        <tr>
+                        
+                            <td>{{vrst.name}}</td>
+                            <td>{{vrst.total_sit}}</td>
+                            <td>
+                                <button id="showDetails" data-bs-toggle="modal" data-bs-target="#details" data-id="{{vrst.id}}" data-type="versity" class="badge badge-sm bg-primary rounded-pill d-inline-block border-0 fw-normal"> 
+                                Details </button>
+                                
+                            </td>
+                        </tr>
+                            
+                            
+                        {%endfor %}
+                      {%endif%}
+                 
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="eligible-list">
+                <div class="d-flex justify-content-center"><h3 class="btn btn-primary text-center">Unit Change Eligible</h3></div>
+                
+                <div class="table-responsive">
+                <table class="table table-success table-sm table-striped text-center table-bordered">
+                    <thead class="table-dark">
+                      <tr>
+                       
+                        <th scope="col">Name</th>
+                        <th scope="col">Total Seat</th>
+                        <th scope="col">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                        {% if unitChange %}
+                        {%for clg in unitChange %}
+                        <tr>
+                        
+                            <td>{{clg.name}}</td>
+                            <td>{{clg.total_sit}}</td>
+                            <td>
+                                <button id="showDetails" data-bs-toggle="modal" data-bs-target="#details" data-id="{{clg.id}}" data-type="unitChange" class="badge badge-sm bg-primary rounded-pill d-inline-block border-0 fw-normal"> 
+                                Details </button>
+                                
+                            </td>
+                        </tr>
+                            
+                            
+                        {%endfor %}
+                      {%endif%}
+                 
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- details modal -->
+          <!-- Button trigger modal -->
+  
+
+  <!-- Modal -->
+  <div class="modal fade" id="details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div id="modal-content" class="modal-content">
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+<!-- load details -->
+<script>
+  const detailbtns = document.querySelectorAll('#showDetails');
+
+  for(let btn of detailbtns){
+      btn.addEventListener('click',function(e){
+          // console.log(btn);
+          const id = btn.getAttribute('data-id');
+          const type = btn.getAttribute('data-type');
+          // console.log(id, type);
+
+          const url2 = `{% url 'show_details' %}`
+          $.ajax({
+
+              type: 'POST',
+              url: url2,
+              dataType: "json",
+              data: {'id': id,'model':type},
+            
+              beforeSend: function () {
+                   loader.classList.remove('d-none');
+              },
+              success: function (response) {
+                $('#modal-content').html(response.details);
+                
+                
+                  loader.classList.add('d-none');
+
+                  
+
+
+              },
+              error: function (error) {
+                  console.log(error);
+                  $('#alerttext').html(error);
+                  alertBox.classList.remove('d-none');
+
+              }
+              
+
+          })
+
+      })
+  }
+
+
+
+ 
+</script>

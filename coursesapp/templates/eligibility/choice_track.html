@@ -1,0 +1,39 @@
+{% extends '../coursesapp/base.html' %}
+
+
+{% block title %}
+    Choice Track
+{% endblock title %}
+
+{% block content %}
+    
+    <div class="row">
+        <div class="col-md-6 p-2">
+            {%for st in students%}
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>{{st}}</td>
+                    <td>{{st.profile_pic}}</td>
+                </tr>
+            </table>
+            <br>
+            {%endfor%}
+        </div>
+        <div class="col-md-6 p-2">
+            {%for st in pro_pic_students%}
+            {{st}}
+            <br>
+            {%endfor%}
+        </div>
+        
+    </div>
+    
+    <div class="text-light p-2 m-3 bg-dark">
+        {{count1}}
+    </div>
+    <div class="text-light p-2 m-3 bg-dark">
+        {{count2}}
+    </div>
+{% endblock content %}
+
+

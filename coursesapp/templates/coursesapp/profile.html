@@ -1,0 +1,237 @@
+{% extends './base.html' %}
+{% load static %}
+{% load courses_custom_tags %}
+
+{% block title %}
+    Profile
+{% endblock title %}
+
+
+
+{% block content %}
+<br>
+<br>
+
+<div class="container">
+   
+    <div class="row">
+
+  
+    <div class="col-lg-3 col-md-4 profile-card-column">
+        {% if student.profile_pic %}
+        <img src="{{student.profile_pic.url}}" class="img-fluid rounded-circle profile-picture"/>
+        {%else%}
+        <a href="{% url 'profilepicupdate' %}">
+        <img src="/static/images/avatar.png" class="img-fluid rounded-circle profile-picture"/>
+        </a>
+        
+        {%endif%}
+        <div class="card profile-card">
+            <p class="text-center card-header" style="padding-top: 100px;">
+                <span class="fw-bold text-uppercase username">{{student.fullname}}</span><br>
+                Roll - <strong>{{request.user.username}}</strong></p>
+            <table class="table table-responsive table-striped mb-0">
+              
+             
+                <tr>
+                    <td>Contact No</td> 
+                    <td>{{student.contact_no}}</td>
+                </tr>
+                
+            </table>
+                
+            <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Details Info
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body" style="padding: 0;">
+                        <table class="table table-responsive table-striped mb-0">
+                            <tr>
+                    <td>SSC Roll</td> 
+                    <td>{{student.sscroll}}</td>
+                </tr>
+             
+                <tr>
+                    <td>SSC Board</td> 
+                    <td>{{student.sscboard}}</td>
+                </tr>
+                <tr>
+                    <td>SSC Year</td> 
+                    <td>{{student.sscyear}}</td>
+                </tr>
+                <tr>
+                    <td>HSC Roll</td> 
+                    <td>{{student.hscroll}}</td>
+                </tr>
+             
+                <tr>
+                    <td>HSC Board</td> 
+                    <td>{{student.hscboard}}</td>
+                </tr>
+                <tr>
+                    <td>HSC Year</td> 
+                    <td>{{student.hscyear}}</td>
+                </tr>
+                <tr>
+                    <td>Reg no.</td> 
+                    <td>{{student.regno}}</td>
+                </tr>
+                            
+                        </table>
+                    </div>
+                    </div>
+            </div>
+  
+        </div>
+        
+                  
+        {%if announcement %}
+        <!-- Button trigger modal -->
+        
+        <button type="button" class="btn d-block primary-color w-100" data-bs-toggle="modal" data-bs-target="#announcement">
+          Announcement
+        </button>
+        <br>
+       
+        <br>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="announcement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Announcement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+               {{announcement.description|safe}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+           
+              </div>
+            </div>
+          </div>
+        </div>
+            
+        {% endif %}
+    </div>
+
+
+    <div class="col-lg-9 col-md-8">
+        <h1 class="display-6 text-center">My Courses</h1>
+        <hr>
+        <br>
+    
+            
+        {%if not usercourses %}
+
+        <div class="m-auto text-center">
+            <p class="alert text-center alert-warning">You don't have any course.</p>
+            <a href="/" class="btn btn-primary btn-sm">Add Courses</a>
+        </div>
+
+        {%endif %}
+
+        <!-- course items -->
+        <div >
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 mx-auto">
+                <div class="row">
+                    {% for course in usercourses %}
+                    <div class="col mx-auto my-2">
+    
+    <div class="card mx-auto shadow" style="width: 18rem;">
+    <a href="{% if course.course.running_week %}/course/{{course.course.slug}}?week={{course.course.running_week}}{%else%}/course/{{course.course.slug}} {%endif%}">
+    <img src="{{course.course.thumbnail.url}}" class="card-img-top rounded" alt="{{course.course.name}}">
+    </a>
+    <div class="card-body">
+        <a href="{% if course.course.running_week %}/course/{{course.course.slug}}?week={{course.course.running_week}}{%else%}/course/{{course.course.slug}} {%endif%}" class="text-decoration-none text-black">
+        <h5 class="card-title">{{course.course.name}}</h5>
+        </a>
+        <p class="card-text">
+            
+            <!--PRICE AREA-->
+            <!--<span class="badge rounded-pill bg-warning text-dark price">-->
+
+            <!--{% if course.price > 0 and course.discount > 0 %}-->
+            <!--    {% cal_sellprice course.price course.discount as sellprice %}-->
+            <!--    {{sellprice|bdt}} -->
+
+            <!--{% elif course.price > 0 and course.discount == 0 %}-->
+            <!--    {{course.price|bdt}} tk               -->
+          
+                
+
+            
+
+            <!--{% else %}-->
+            <!--Free                -->
+            <!--{% endif %}-->
+            <!--</span>-->
+
+            <!-- {% if course.discount > 0 %}-->
+            <!-- &nbsp;<del>{{course.price|bdt}}</del>-->
+            <!-- &nbsp; <span class="text-danger bold">{{course.discount}}% OFF</span>-->
+            <!--  {% endif %}-->
+              
+              
+                
+        </p>
+        
+    </div>
+
+    <div class="card-footer p-0">
+        <div class="row no-gutters">
+            <div class="col">
+             
+                <a href="{% if course.course.running_week %}/course/{{course.course.slug}}?week={{course.course.running_week}}{%else%}/course/{{course.course.slug}} {%endif%}" class="btn btn-primary d-block">Start Course</a>
+
+              
+            </div>
+        
+          
+        </div>
+
+    </div>
+    </div>
+    
+
+    </div>
+                    {%endfor%}
+                    
+                </div><!-- end col -->
+            </div><!-- end row -->
+            <div class="col-lg-1"></div>
+        </div>
+        {%if usercourses %}
+        <div class="text-center my-3 py-2"><a href="{% url 'home' %}#courses" class="m-auto btn btn-primary btn-sm">Add More Courses</a></div>
+        <div class="text-center my-3 py-2"><a href="{% url 'removecourse' %}" class="m-auto btn btn-secondary btn-sm">Remove Course</a></div>
+
+        {% endif %}    
+        
+
+    </div>
+    <br>
+    
+    <div class="my-5 text-center">
+        
+        
+        <img style="max-height: 450px;" class="img-fluid" src="{% static 'images/hero-banner.svg' %}" alt="hero-banner">
+        
+        <h4 class="text-uppercase motication-title">Practice Makes Master</h4>
+        <p class="motivation-text">ভর্তি পরীক্ষায় সেই বেশি এগিয়ে থাকে যে বেশি বেশি প্রাক্টিস করে,  ভর্তি পরীক্ষায় অনেক গুরুত্বপূর্ণ বিষয় হলো পরীক্ষার হলে সময়কে কাজে লাগিয়ে মাথা ঠান্ডা রেখে সর্বোচ্চটা দিয়ে আসা। তাই প্রাক্টিসের কোন বিকল্প নেই। আমাদের কোর্সগুলোর মধ্যে যথেষ্ট পরিমাণ প্রাক্টিস এক্সাম রয়েছে, লাইভ এক্সাম দেয়ার সাথে সাথে, এই প্রতিযোগিতায় নিজেকে সবার থেকে এগিয়ে রাখতে প্রাক্টিস এক্সামগুলো দিয়ে সহজ করে ফেলো নিজের স্বপ্ন ছোয়ার পথ।</p>
+        <p class="motivation-footer">তোমাদের সহযোগিতায় পাশে আছি আমরা</p>
+        <p class="">-We Rise by Lifting Others</p>        
+
+
+    </div>
+
+</div>
+
+
+  
+{% endblock content %}

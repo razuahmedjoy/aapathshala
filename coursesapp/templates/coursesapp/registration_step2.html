@@ -1,0 +1,366 @@
+{% extends './base.html' %}
+{% load regform_custom_tags %}
+{% load static %}
+
+{% block title %}
+    Registration
+{% endblock title %}
+
+{%block css %}
+<link rel="stylesheet" href="{% static 'css/registration.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+{%endblock css %}
+
+
+
+{% block content %}
+
+
+<section style="
+    background: none;
+">
+
+ 
+    <div class="container">
+   
+      <div class="user signupBx">
+        <div class="formBx">
+          <form id="createform" method="POST">
+              <br>
+              {% csrf_token %}
+
+            <h2>Complete Registration</h2>
+            <br>
+
+           
+     
+            <input id="contact_no" hidden type="number" name="contact_no" value="{{contact_no}}" required/>
+            <input id="fname" hidden type="text" name="fname" value="{{fname}}" required/>
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" class="form-control" required>
+              <option value="">Choose One</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+           
+            </select>
+            
+
+            <label for="email">Your Email Address</label>
+            <input id="email" type="email" name="email"  placeholder="mail@gmail.com (optional)"/>
+            
+            <label for="institue">Current Institute/College</label>
+            <input id="institue" type="text" name="institue" required />
+
+            <label for="sscroll">SSC Roll</label>
+            <input id="sscroll" type="number" name="sscroll" required maxlength="6" />
+
+            <label for="sscboard">SSC Board</label>
+            <select id="sscboard" name="sscboard" class="form-control" required>
+              <option value="">Choose One</option>
+              <option value="Barisal">Barisal</option>
+              <option value="Chittagong">Chittagong</option>
+              <option value="Comilla">Comilla</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Dinajpur">Dinajpur</option>
+              <option value="Jessore">Jessore</option>
+              <option value="Madrasah">Madrasah</option>
+              <option value="Rajshahi">Rajshahi</option>
+              <option value="Sylhet">Sylhet</option>
+              <option value="Mymensingh">Mymensingh</option>
+              <option value="Technical">Technical</option>
+            </select>
+
+            <label for="sscyear">SSC Year</label>
+            <select id="sscyear" name="sscyear" class="form-control" required>
+              <option value="">Choose One</option>
+              {% getYears as years %}
+              {% for year in years %}
+              <option value="{{year}}">{{year}}</option>
+              {%endfor %}
+              
+             
+            </select>
+            <!-- HSC -->
+            <br>
+            <label for="hscroll">HSC Roll</label>
+            <input id="hscroll" type="number" name="hscroll" required maxlength="6"/>
+
+            <label for="hscboard">HSC Board</label>
+            <select id="hscboard" name="hscboard" class="form-control" required>
+              <option value="">Choose One</option>
+              <option value="Barisal">Barisal</option>
+              <option value="Chittagong">Chittagong</option>
+              <option value="Comilla">Comilla</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Dinajpur">Dinajpur</option>
+              <option value="Jessore">Jessore</option>
+              <option value="Madrasah">Madrasah</option>
+              <option value="Rajshahi">Rajshahi</option>
+              <option value="Sylhet">Sylhet</option>
+              <option value="Mymensingh">Mymensingh</option>
+              <option value="Technical">Technical</option>
+            </select>
+
+            <label for="hscyear">HSC Year</label>
+            <select id="hscyear" name="hscyear" class="form-control" required>
+              <option value="">Choose One</option>
+              {% getYears as years %}
+              {% for year in years %}
+              <option value="{{year}}">{{year}}</option>
+              {%endfor %}
+              
+             
+            </select>
+            <hr>
+            <label for="regno">HSC/SSC Registration no.</label>
+            <input id="regno" type="number" name="regno" required maxlength="10"/>
+
+
+            
+            
+            
+            
+
+            <label for="passsword1">Password</label> <sub>( minimum 6 digits or more )</sub>
+            <input id="password1" type="password" name="password1" required minlength="6"/>
+            <label for="passsword2">Confirm Password</label> 
+            <input id="password2" type="password" name="password2" required />
+            
+            <input type="checkbox" required style="
+    display: inline;
+    width: 5%;
+" /> I accept the
+            <a style="color: #FE3050;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">Terms & Conditions</a>
+           
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Terms & Conditions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                
+
+
+   ★আমাদের কার্যক্রমের সাথে অন্য কোন প্রতিষ্ঠানের কার্যক্রমের সাথে কোনরকম তুলনা করা যাবেনা। <br>
+    ★রেজিস্ট্রেশন সম্পন্ন করার জন্য আমরা একজন শিক্ষার্থীর কাছ থেকে দশ এর অধিক তথ্য নিব।একজন শিক্ষার্থীকে প্রতিটি তথ্য সঠিক দিতে হবে।শিক্ষার্থীদের রেজিস্ট্রেশন করার সময় প্রয়োজনীয় তথ্যগুলো তার রেজিস্ট্রেশন কার্ড অনুসারে দেয়ার জন্য বলা হচ্ছে।ভুল তথ্য দিয়ে রেজিস্ট্রেশন করা যাবেনা , কেউ করলে তার একাউন্ট সাসপেন্ড করে দেয়া হবে।<br>
+    ★আমাদের ওয়েবসাইটে চলমান কোর্সগুলো নির্দিষ্ট ব্যাচের শিক্ষার্থীরা করতে পারবে।একজন শিক্ষার্থী আগ্রহ অনুসারে কোর্স এ ক্লিক করে নির্দিষ্ট কোর্স এনরোল করতে পারবে এবং কার্যক্রমে অংশগ্রহন করতে পারবে। <br>
+    ★একজন শিক্ষার্থী একই সাথে এক বা একাধিক কোর্স এনরোল করতে পারবে এবং কার্যক্রমে অংশগ্রহণ করতে পারবে।এরজন্য শিক্ষার্থীদের ওয়েবসাইটে লগইন করে নিজ প্রফাইলে যেতে হবে। <br>
+    ★আমাদের ওয়েবসাইটের কপিরাইটেড কিছু কনটেন্ট থাকতে পারে।তবে সংশ্লিষ্ট কর্তৃপক্ষ অভিমত দিলে আমরা সেসব রিমুভ করে দিব। <br>
+    ★একজন শিক্ষার্থী তার এনরোল করা কোর্সগুলোর কার্যক্রমে অংশ্রগ্রহণ করতে হবে।কেউ যদি কোন কোর্সে টানা তিন সপ্তাহ অনুপস্থিত থাকে তবে তাকে অনিয়মিত শিক্ষার্থী হিসেবে কাউন্ট করা হবে এবং একটি পর্যায়ে উক্ত কোর্স থেকে রিমুভ করে দেয়া হবে। <br>
+   ★ আমাদের ওয়েবসাইট ও কোর্সের নীতিমালা যেকোন সময় আমরা সুবিধামত সংশোধন করতে পারি। 
+   ধন্যবাদ।<br>
+
+
+
+
+We Rise By Lifting Others
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ok</button>
+                    
+                  </div>
+                </div>
+              </div>
+</div>
+
+            <br>
+            <small id="alert" class="text-danger d-none"></small>
+            <br>
+            
+
+
+            <input id="create-account" type="submit"  value="Create Account" />
+
+           
+
+            <br><br>
+          </form>
+        </div>
+       
+      </div>
+
+      <div id="loader" class="d-flex justify-content-center d-none" style="
+      background: #355aae69;
+      align-items: center;
+      width: 100%;
+      z-index: 5;
+      height: 100%;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+  ">
+        <div class="spinner-border" style="
+        width: 5rem;
+        height: 5rem;
+    " role="status">
+        
+        </div>
+      </div>
+
+      
+    </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+   
+  </section>
+
+  
+{% endblock content %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+<script>
+  $( function() {
+    $( "#institue" ).autocomplete({
+      source: "{% url 'collegelist' %}",
+      minLength: 3,
+    });
+  } );
+  </script>
+
+<script type="text/javascript">
+  var form = document.getElementById('createform');
+  var loader = document.getElementById('loader');
+  var alert = document.getElementById('alert');
+
+  
+    form.addEventListener('submit', function(e) {
+     loader.classList.toggle('d-none');
+    e.preventDefault();
+
+    let fname = document.getElementById('fname').value;
+    let gender = document.getElementById('gender').value;
+    let password1 = document.getElementById('password1').value;
+    let password2 = document.getElementById('password2').value;
+    let email = document.getElementById('email').value;
+    let contact_no = document.getElementById('contact_no').value;
+    let institue = document.getElementById('institue').value;
+    let sscroll = document.getElementById('sscroll').value;
+    let sscboard = document.getElementById('sscboard').value;
+    let sscyear = document.getElementById('sscyear').value;
+    let hscroll = document.getElementById('hscroll').value;
+    let hscboard = document.getElementById('hscboard').value;
+    let hscyear = document.getElementById('hscyear').value;
+    let regno = document.getElementById('regno').value;
+
+    if (sscroll.length == 6 && hscroll.length == 6 && regno.length == 10) {
+        if (password1 == password2) {
+    
+          var passw = /^(?=.*\d)(?=.*[A-Za-z]).{6,20}$/;
+        //   if(password1.match(passw)) 
+          if(password1.length >= 6) 
+          { 
+            
+              $.ajax({
+            
+            type: "POST",
+            url: "{% url 'createaccount' %}",
+            data: {
+                'fname': fname,
+                'gender': gender,
+                'password1': password1,
+                'password2': password2,
+                'institue': institue,
+                'sscroll': sscroll,
+                'sscboard': sscboard,
+                'sscyear': sscyear,
+                'hscroll': hscroll,
+                'hscboard': hscboard,
+                'hscyear': hscyear,
+                'regno': regno,
+                'email' : email,
+                'contact_no': contact_no,
+                'csrfmiddlewaretoken': '{{csrf_token}}',
+            },
+    
+            success: function (response) {
+                if (response == 'success') {
+                  window.location.href = "{% url 'registerconfirm' %}";
+    
+                }
+                else{
+    
+                  alert.innerText = response;
+                  alert.classList.remove('d-none');
+                  loader.classList.toggle('d-none');
+    
+                }
+            },
+            failure: function (e) {
+                console.log(e)
+            }
+    
+    
+            })
+    
+    
+          }
+          else{
+            alert.innerText = "Password should have atleast one character and one number";
+            alert.classList.remove('d-none');
+    
+           loader.classList.toggle('d-none');
+          }
+    
+    
+        }
+        else{
+          alert.innerText = "Password should be same for the both input";
+          alert.classList.remove('d-none');
+    
+           loader.classList.toggle('d-none');
+          
+    
+        }
+    }
+    else{
+        alert.innerText = "Enter valid roll or registration no.";
+        alert.classList.remove('d-none');
+
+        loader.classList.toggle('d-none');
+
+    }
+
+
+
+
+  })
+
+
+
+
+
+</script>
+
+      
+{% endblock js %}

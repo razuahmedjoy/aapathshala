@@ -1,0 +1,79 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Forgot Roll - AAP
+{% endblock title %}
+
+
+
+
+{% block content %}
+<div class="container m-auto">
+
+{% include "./loadernone.html" %}
+<div class="my-5 py-5">
+    <div class="card shadow" style="
+    max-width: 600px;
+    padding: 2rem;
+    margin: 0 auto;
+">      
+
+      <form class="form" action="{% url 'forgotroll' %}" method="POST">
+          {% csrf_token %}
+        <h2 class="text-center">Forget your Roll?</h2>
+
+        {%if nostudent is True %}
+
+        <p class="text-sm text-danger">There is no student registered with your information</p>
+        {%endif %}
+        
+        {%if rollsent is True %}
+        <p class="text-sm text-success">An SMS is sent to your number with your roll. <a href="{%url 'login' %}">Login Now</a></p>
+
+        {%endif %}
+        
+
+
+        <br>
+
+        <label for="contact_no">Enter Your Contact No.</label><br>
+        <input class="form-control" type="number" name="contact_no" required placeholder="017XXXXXX"><br>
+        <label for="regno">Enter your SSC/HSC Registration no.</label><br>
+        <input class="form-control" type="number" name="regno" required><br>
+
+        
+        <br>
+        <input class="form-control btn primary-color" type="submit" value="Send Roll"/>
+         <br><br>
+      
+      </form>
+    </div>
+
+
+</div>
+
+</div>
+
+
+  
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+
+    var loader = document.getElementById('loader');
+    var alert = document.getElementById('alert');
+  
+    
+      document.addEventListener('submit', function(e) {
+        loader.classList.toggle('d-none');
+        
+    })
+        
+  
+  
+  </script>
+  
+        
+  {% endblock js %}

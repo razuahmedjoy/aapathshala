@@ -1,0 +1,93 @@
+{% load courses_custom_tags %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="lecture-details">
+
+
+                <div class="card mb-3">
+                      {% for coursematerials in lecture.coursematerials_set.all%}
+                    <h5 class="card-header text-center">    <a class="d-block" href="?week={{week.id}}&embaded=cmaterials&id={{coursematerials.id}}">{{coursematerials}}</a>
+                    </h5>
+                    
+                    {%endfor%}
+                 
+                </div>
+
+
+
+                <div class="card mb-3">
+                     {% for coursevideos in lecture.coursevideos_set.all%}
+                    <h5 class="card-header text-center">
+                           <a class="d-block" href="?week={{week.id}}&embaded=coursevideos&id={{coursevideos.id}}">{{coursevideos}}</a>
+                    </h5>
+                    
+                      {%endfor%}
+               
+                </div>
+
+                
+
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="lecture-details">
+
+                <div class="card mb-3">
+                      {% for practiceexam in lecture.practiceexam_set.all%}
+                    <h5 class="card-header text-center">
+                       
+
+                        <a class="d-block" href="?week={{week.id}}&exam=practice&id={{practiceexam.id}}">{{practiceexam}}</a>
+                        
+                    </h5>
+                    {%endfor%}
+                 
+                </div>
+                <div class="card mb-2">
+                     {% for liveexam in lecture.liveexam_set.all%}
+                         <a class="d-block" href="?week={{week.id}}&exam=live&id={{liveexam.id}}">
+                    <h5 style="width: 100%;" class="card-header text-center{% if liveexam.is_active is True %} animated-button {%endif%}">
+                       
+                   
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          {{liveexam}}
+                       
+
+                        
+                    </h5>
+                     </a>
+                    {%endfor%}
+                   
+                </div>
+               
+                <div class="text-center">
+                    {%is_enrolled request course as enrolled %}
+                    {% if enrolled %}
+                     {% if lecture.qns %}
+                    <a class="btn btn-sm btn-info mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{lecture.qns}}" folder-name="{{lecture.title}}">QNS</a>
+                    {% endif %}
+                    {%if lecture.result %}
+                    <a class="btn btn-sm btn-info mx-2" href="{{lecture.result.url}}">Result</a>
+                      {% endif %}
+                     {% endif %}
+                </div>
+            
+              
+
+                
+            
+               
+
+            </div>
+        </div>
+        {% if lecture.lecture_notice %}
+        <p class="text-center">
+            {{lecture.lecture_notice|safe}}
+        </p>
+        {%endif%}
+    </div>
+</div>

@@ -1,0 +1,70 @@
+ <div >
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 mx-auto">
+                <div class="row">
+                    {% for course in usercourses %}
+                    <div class="col mx-auto my-2">
+    
+    <div class="card mx-auto shadow" style="width: 18rem;">
+    <a href="{% if course.course.running_week %}/course/{{course.course.slug}}?week={{course.course.running_week}}{%else%}/course/{{course.course.slug}} {%endif%}">
+    <img src="{{course.course.thumbnail.url}}" class="card-img-top rounded" alt="{{course.course.name}}">
+    </a>
+    <div class="card-body">
+        <a href="{% if course.course.running_week %}/course/{{course.course.slug}}?week={{course.course.running_week}}{%else%}/course/{{course.course.slug}} {%endif%}" class="text-decoration-none text-black">
+        <h5 class="card-title">{{course.course.name}}</h5>
+        </a>
+        <p class="card-text">
+            
+            <!--PRICE AREA-->
+            <!--<span class="badge rounded-pill bg-warning text-dark price">-->
+
+            <!--{% if course.price > 0 and course.discount > 0 %}-->
+            <!--    {% cal_sellprice course.price course.discount as sellprice %}-->
+            <!--    {{sellprice|bdt}} -->
+
+            <!--{% elif course.price > 0 and course.discount == 0 %}-->
+            <!--    {{course.price|bdt}} tk               -->
+          
+                
+
+            
+
+            <!--{% else %}-->
+            <!--Free                -->
+            <!--{% endif %}-->
+            <!--</span>-->
+
+            <!-- {% if course.discount > 0 %}-->
+            <!-- &nbsp;<del>{{course.price|bdt}}</del>-->
+            <!-- &nbsp; <span class="text-danger bold">{{course.discount}}% OFF</span>-->
+            <!--  {% endif %}-->
+              
+              
+                
+        </p>
+        
+    </div>
+
+    <div class="card-footer p-0">
+        <div class="row no-gutters">
+            <div class="col">
+             
+                <a href="{% if course.course.running_week %}/course/{{course.course.slug}}?week={{course.course.running_week}}{%else%}/course/{{course.course.slug}} {%endif%}" class="btn btn-primary d-block">Start Course</a>
+
+              
+            </div>
+        
+          
+        </div>
+
+    </div>
+    </div>
+    
+
+    </div>
+                    {%endfor%}
+                    
+                </div><!-- end col -->
+            </div><!-- end row -->
+            <div class="col-lg-1"></div>
+        </div>

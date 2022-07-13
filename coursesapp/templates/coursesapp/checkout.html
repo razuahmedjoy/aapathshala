@@ -1,0 +1,59 @@
+{% extends './base.html' %}
+{% load courses_custom_tags %}
+
+{% block title %}
+    Checkout
+{% endblock title %}
+
+
+
+{% block content %}
+
+
+<div class="container">
+    <h2 class="display-4 text-center alert border">Checkout</h2>
+    <hr>
+  
+    <div class="row">
+
+        <div class="col mx-auto my-2">
+    
+            <div class="card m-auto rounded" style="width: 18rem;">
+            <a href="/course/{{course.slug}}">
+            <img src="{{course.thumbnail.url}}" class="card-img-top rounded" alt="...">
+            </a>
+            <div class="card-body">
+                <a href="/course/{{course.slug}}" class="text-decoration-none text-black">
+                <h5 class="card-title">{{course.name}}</h5>
+                
+                </a>
+        
+                
+            </div>
+        
+         
+            </div>
+            
+        
+        </div>
+
+        <div class="col my-2">
+            <div>
+                <p>{{course.name}} &nbsp;&nbsp;&nbsp;&nbsp; 
+                </p>
+                <p>কোর্স এর সাথে যুক্ত হতে নিচের Enroll Now বাটনে ক্লিক করতে হবে। তাহলে কোর্স টি আপনার প্রোফাইল এ যুক্ত হয়ে যাবে। এবং কোর্স টির সকল টপিক এ এক্সেস পেয়ে যাবেন ।</p>
+                <hr>
+             
+
+                <a class="btn btn-outline-danger mx-3" href="?action=enroll-now">Enroll Now</a>
+            </div>
+        </div>
+          
+
+    </div>
+   
+</div>
+
+
+  
+{% endblock content %}
