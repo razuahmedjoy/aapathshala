@@ -5,6 +5,8 @@ from coursesapp.models import Course, Tag, Prerequisite, Learning, Video, Sectio
 from coursesapp.models.student import Students,College
 from import_export.admin import ImportExportModelAdmin
 
+from coursesapp.models import JoinUs
+
 from django.utils.html import format_html
 
 
@@ -129,6 +131,10 @@ class CollegeAdmin(ImportExportModelAdmin):
     ordering = ('id',)
     search_fields = ['name','eiin']
 
+class JoinUsAdmin(admin.ModelAdmin):
+    list_display = ['full_name', 'hsc_batch', 'department', 'your_aap_roll', 'currently_studying', 'your_free_time', 'contact', 'why_choose_us']
+    search_fields = ['your_aap_roll', 'contact', 'full_name', 'hsc_batch']
+
 admin.site.register(College,CollegeAdmin)
 
 admin.site.register(Course, CourseAdmin)
@@ -147,3 +153,4 @@ admin.site.register(Payment,PaymentAdmin)
 admin.site.register(Library,LibraryAdmin)
 admin.site.register(Settings)
 admin.site.register(Announcement)
+admin.site.register(JoinUs, JoinUsAdmin)

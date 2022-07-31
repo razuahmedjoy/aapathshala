@@ -11,10 +11,13 @@ db.sqlite3
 /eligibility_check/migrations
 /coursesapp/__pycache__
 /coursesapp/*/__pycache__
+coursesapp/static
 /barta/__pycache__
 /barta/*/__pycache__
 /coursesapp/migrations
 /barta/migrations
+/venv
+.vscode
 
 
 

@@ -1,0 +1,389 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Join With Us
+{% endblock title %}
+
+{% block css %}
+<style>
+  body {
+    background-color: #8cbbcf99;
+  }
+
+  .alert {
+    color: #FE3050;
+
+  }
+
+  .join-us-container {
+    padding: 1em;
+  }
+
+  .join-us-container article h1,
+  h2 {
+    text-align: center;
+  }
+
+  .join-department-p {
+    text-align: center;
+  }
+
+  .join-us-form {
+    background-color: white;
+    border: 1px solid rgb(207, 205, 205);
+    border-radius: 10px;
+    padding: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .join-us-form textarea {
+    height: 3rem;
+    margin-bottom: 0.5em;
+  }
+
+  .join-us-form button {
+    background-color: #FE3050;
+    color: white;
+  }
+
+  .accordion-button:not(.collapsed) {
+    background-color: #ffe6ea;
+  }
+
+  .accordion-button:not(.collapsed) {
+    color: black;
+  }
+
+  .accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgb(255 179 191 / 25%);
+  }
+
+  .accordion-button,
+  .accordion-button::after {
+    color: #FE3050;
+
+  }
+
+  .accordion-button {
+    border-radius: 1rem;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+  }
+
+  .accordion-item:first-of-type .accordion-button,
+  .accordion-item:first-of-type {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+
+  .accordion-item:last-of-type .accordion-button.collapsed,
+  .accordion-item:last-of-type {
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+
+  .accordion-item {
+    margin: 1em;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+  }
+
+  @media (max-width: 760px) {
+    .join-us-hero {
+      flex-direction: column-reverse;
+    }
+
+    .accordion .col-md-6 {
+      margin-bottom: -0.8em;
+    }
+
+  }
+
+  @media (min-width: 760px) {
+    .join-us-hero h1 {
+      margin-top: 1.2em;
+    }
+
+
+  }
+</style>
+{% endblock css %}
+
+
+
+{% block content %}
+
+<div class="container join-us-container">
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-light alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  {% endfor %}
+  {% endif %}
+  <div class="row join-us-hero">
+
+    <div class="col-md-6">
+      <article class="join-article">
+        <h1>Join With AAP</h1>
+        <p>
+          একাডেমিক এন্ড এডমিশন পাঠশালা কাজ করছে ভর্তিচ্ছু শিক্ষার্থীদের নিয়ে।পাঠশালার বর্তমানে মুল উদ্দেশ্য
+          হলো ভর্তিচ্ছু শিক্ষার্থীদের ভর্তি প্রস্তুতির সম্পূর্ণ সহায়ক হিসেবে কাজ করা, যাতে করে একজন শিক্ষার্থী
+          পাঠশালা থেকে তার সম্পূর্ণ ভর্তি প্রস্তুতি নিতে পারে।পাঠশালার এই কার্যক্রমের সাথে তুমিও যুক্ত হয়ে কাজ
+          করতে পারবে। শর্তঃ
+        <ul>
+          <li>পাঠশালার শিক্ষার্থী হতে হবে।</li>
+          <li>পাঠশালার কাজের প্রতি খুব বেশি আগ্রহ থাকতে হবে এবং পাঠশালায় সময় দেয়ার মনোবল থাকতে হবে।</li>
+        </ul>
+        </p>
+      </article>
+    </div>
+    <div class="col-md-6">
+      <img src="/static/images/join-hero.svg" alt="aapathshala" class="img-fluid">
+    </div>
+  </div>
+
+  <div class="row">
+    <article>
+      <p class="join-department-p">
+        পাঠশালায় কাজের ১০ টি ডিপার্টমেন্ট রয়েছে। ডিপার্টমেন্ট গুলো দেখে নেও, নামের উপর ক্লিক করলে বিস্তারিত পড়তে
+        পারবেঃ
+      </p>
+      <div class="accordion row" id="joinAcc">
+        <div class="col-md-6">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                শিক্ষার্থীদের প্রশ্নের উত্তর দেয়া
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালায় শিক্ষার্থীদের প্রশ্নের উত্তরের জন্য রয়েছে “পারসোনাল কেয়ার”।যেখানে শিক্ষার্থীরা তাদের প্রশ্ন
+                জানাতে পারে।প্রশ্ন হিসেবে শিক্ষার্থীর পড়াশোনা সংক্রান্ত প্রশ্ন এবং আমাদের কার্যক্রম নিয়ে তার প্রশ্ন
+                থাকতে পারে।এই প্রশ্নগুলো আসবেঃ আমাদের ওয়েবসাইটের পারসোনাল কেয়ারে, ফেসবুক পেজের ইনবক্সে এবং
+                টেলিগ্রামে।তাই এই সেকশনে আগ্রহী শিক্ষার্থীদের পাঠশালার কেয়ারে আসা প্রশ্নগুলোর উত্তর দিতে হবে।
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                বিষয়ভিত্তিক প্রশ্ন সলভ ও প্রশ্ন তৈরি করা
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালায় ইঞ্জিনিয়ারিং, মেডিকেল ও ভার্সিটির কোর্স চলমান থাকে। সেই কোর্সে বিষয়ভিত্তিক অনেক প্রশ্ন থাকে,
+                যেই প্রশ্নগুলো নিয়ে শিক্ষার্থীদের Doubt থাকতে পারে, সেই প্রশ্নগুলোর সলভ প্রস্তুত করা এই সেকশনের
+                কাজ।পাঠশালার পারসোনাল কেয়ারে শিক্ষার্থীরা অনেক প্রশ্নের উত্তর ও ব্যাখ্যা জানতে চাইবে সেই প্রশ্নগুলোর
+                সমাধান দেয়া।একইভাবে ভর্তি প্রস্তুতির জন্য কার্যকর প্রশ্ন তৈরি করাও এই সেকশনের অন্তর্ভুক্ত।
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                ফেসবুক গ্রুপ পরিচালনা করা
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালার ফেসবুক গ্রুপে দৈনিক অসংখ্য পোস্ট আসে।দিকনির্দেশনা মেনে ফেসবুক গ্রুপের পোস্ট এপ্রুভ করা এই
+                সেকশনের মুল কাজ।পোস্ট এপ্রুভের পাশাপাশি শিক্ষার্থীদের পোস্টে্র কমেন্টে উত্তর দেয়াও এই সেকশনের কাজ।
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                ফেসবুক পেজ পরিচালনা করা
+              </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালা ফেসবুক পেজ পরিচালনার কাজটায় মুলত আমাদের পেজে নিয়মিত পোস্ট করতে হবে, শিক্ষার্থীদের কমেন্টের
+                রিপ্লাই দিতে হবে এবং ইনবক্সে মেসেজের রিপ্লাই দিতে হবে।ফেসবুক পেজের কার্যক্রম নিয়ে আমরা পিছিয়ে আছি, তাই
+                এই সেকশনের কার্যক্রমের জন্য পাঠশালার প্রয়োজন ফেসবুকে এক্টিভ শিক্ষার্থী।
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                প্রশ্ন টাইপ করা - টাইপিং এ দক্ষ
+              </button>
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                যারা টাইপিং এ দক্ষ তারা প্রশ্ন টাইপিং অংশে আগ্রহ প্রকাশ করতে পারো।আমরা প্রশ্ন দেব সেই প্রশ্ন দেখে দেখে
+                টাইপ করতে হবে।যারা বাংলা ও অভ্রতে ভালো টাইপ করতে পারো তারা আমাদের প্রশ্ন টাইপিং অংশে যুক্ত হতে
+                পারো।যাদের পারসোনাল কম্পিউটার আছে তারা এই অংশে সময় দিলে কার্যকর হবে,মোবাইল দিয়েও কাজ করা যাবে তবে
+                সেক্ষেত্রে বেশি সময় লাগবে।পাঠশালার কাজের প্রতি আগ্রহী ও ধৈর্য্যশীল শিক্ষার্থীদের এই অংশে আগ্রহ প্রকাশ
+                করলে আমাদের ভালো হবে।
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading6">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                পাঠশালার লেকচারার হিসাবে যুক্ত হওয়া
+              </button>
+            </h2>
+            <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালায় ইঞ্জিনিয়ারিং, মেডিকেল ও ভার্সিটি ভর্তি প্রস্তুতির কোর্স চলমান থাকে, উক্ত কোর্সগুলোর লেকচারার
+                হিসেবে যুক্ত হওয়ার সুযোগ রয়েছে।তবে এক্ষেত্রে একজন শিক্ষার্থীকে নির্দিষ্ট সাব্জেক্ট/বিষয়ের উপর দক্ষ এবং
+                ক্লাস নেয়ার উপযোগী মনোবল থাকা আবশ্যক।
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading7">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                বিষয়ভিত্তিক লেকচার কন্টেন্ট তৈরি করা
+              </button>
+            </h2>
+            <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালায় ইঞ্জিনিয়ারিং, মেডিকেল ও ভার্সিটি ভর্তি প্রস্তুতির কোর্স চলমান থাকে। উক্ত কোর্সগুলোর জন্য
+                নির্দিষ্ট সাব্জেক্টের চাপ্টাররের উপর কন্টেন্ট প্রস্তুত করতে হবে।কন্টেন্ট গুলো দিয়ে ক্লাস নোট প্রস্তুতির
+                কাজ করা হবে।তবে এক্ষেত্রে একজন শিক্ষার্থীকে নির্দিষ্ট সাব্জেক্ট/বিষয়ের উপর দক্ষ হতে হবে।যারা সুন্দর নোট
+                প্রস্তুত করতে পারো তারাও এই সেকশনে যুক্ত হয়ে কাজ করতে পারো।নিজের নোট শেয়ার করা এবং অন্য শিক্ষার্থীদের এই
+                কাজে উৎসাহিত করাও এই সেকশনের অন্তর্ভুক্ত।
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading8">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                নিজ ক্যাম্পাসের আপডেট তথ্য সংগ্রহ ও জানানো
+              </button>
+            </h2>
+            <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালা বার্তা – নির্ভরশীলতায় আলোর বার্তা কাজ করছে শিক্ষার্থীদের সঠিক তথ্য প্রদানের উদ্দেশ্যে।পাঠশালা
+                বার্তার মাধ্যমে শিক্ষার্থীরা ভর্তি পরীক্ষা সংক্রান্ত সকল তথ্য জানতে পারবে।একইভাবে পাঠশালা বার্তায়
+                প্রতিটি বিশ্ববিদ্যালয়ের সকল আপডেট জানানো হবে।তাই,তুমি যদি কোন বিশ্ববিদ্যালয়ের শিক্ষার্থী হও এবং তোমার
+                বিশ্ববিদ্যালয়ের আপডেট তথ্য বার্তায় দিয়ে ভুমিকা রাখতে চাও তাহলে তোমার জন্য এই সেকশন রয়েছে।
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading9">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                গ্রাফিক ডিজাইনার – পোস্টার ডিজাইন করা
+              </button>
+            </h2>
+            <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পোস্টার ডিজাইনে যাদের অভিজ্ঞতা আছে তারা এই সেকশনে যুক্ত হতে পারো।পাঠশালার কোর্সের জন্য,পাঠশালার গ্রুপ ও
+                পেজের কার্যক্রমের জন্য ছবি ডিজাইন করে দিবে।যাদের পোস্টার ডিজাইনে ও কালার গ্রেডিং এ দক্ষতা আছে তারা
+                আমাদের এই সেকশনে যুক্ত হতে পারো।
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading10">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                পিডিএফ তৈরি করা – স্ক্যান করে
+              </button>
+            </h2>
+            <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10"
+              data-bs-parent="#joinAcc">
+              <div class="accordion-body">
+                পাঠশালার অনলাইন লাইব্রেরিতে আমরা শিক্ষার্থীদের জন্য প্রয়োজনীয় বইগুলোর PDF দিয়ে থাকি।তোমার যদি ভালো
+                ক্যামেরা থাকে এবং তুমি যদি বইয়ের ছবি তুলে স্ক্যান করে আমাদের PDF করে দিতে আগ্রহী হও তাহলে এই সেকশন তোমার
+                জন্য।তবে এর জন্য তোমার ফোনের ক্যামেরা ভালো হতে হবে।আমরা তোমাকে বই দিব,তুমি দিকনির্দেশনা মেনে উক্ত বইয়ের
+                PDF করে আমাদের দিবে।
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+      </div>
+    </article>
+  </div>
+  <hr>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10 ">
+      <article>
+        <p>তুমি উপরের ডিপার্টমেন্ট থেকে যেকোন ডিপার্টমেন্টে কাজ করতে ও সময় দিতে আগ্রহী হলে নিচের ফর্ম ফিল আপ করে
+          তোমার আগ্রহ আমাদের কাছে প্রকাশ করো : </p>
+      </article>
+
+      <form action="{% url 'join_us' %}" method="post" class="join-us-form">
+        {{join_form | crispy}}
+        {% csrf_token %}
+        <div style="text-align: center;">
+          <button class="btn" type="submit">Submit Your Application</button>
+        </div>
+      </form>
+
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <article>
+      <h2>We Rise By Lifting Others</h2>
+      <p>
+        পাঠশালার সাথে যুক্ত হওয়ার আগ্রহ প্রকাশের জন্য অনেক ধন্যবাদ।আমরা শিক্ষার্থীদের জন্য কাজ করে আসছি,
+        শিক্ষার্থীদের সর্বোচ্চ সুযোগ ও সুন্দর প্রস্তুতি তৈরি করা আমাদের কাজের মুল উদ্দেশ্য।পাঠশালা একটি অলাভজনক
+        প্রতিষ্ঠান।পাঠশালা শিক্ষার্থীদের কাছ থেকে অর্থ নিয়ে কোন কাজ করেনা।তাই, পাঠশালার সাথে কাজ করতে আগ্রহ
+        প্রকাশকারী শিক্ষার্থীদের এই বিষয়টি মাথায় রেখে আগ্রহ প্রকাশের অনুরোধ রাখা হল।পাঠশালা আমাদের আবেগ এবং
+        ভালোবাসার জায়গা।এখানে আমরা কাজ করব মন থেকে এবং সময় দিবে ভালোবাসার জায়গাটুক থেকে – এটাই আমাদের প্রাপ্তি।
+        আমাদের সাথে যুক্ত হয়ে কাজ করলে আমরা তোমাকে বিভিন্নভাবে সহযোগিতা করার চেষ্টা করব , তোমার ক্যারিয়ার
+        দিকনির্দেশনা নিয়ে , তোমার মানসিক সমস্যাগুলো সমাধানে আমাদের খুব কাছে পাবে।
+
+        পাঠশালায় কাজ করে যখন কোন শিক্ষার্থী অভিজ্ঞ হবে এবং পাঠশালার কাজের প্রতি তার আগ্রহ আমাদের সন্তুষ্ট করবে
+        শুধু তাদের আমরা পাঠশালা থেকে সম্মাননা দিয়ে যুক্ত করে নিব,ইনশাল্লাহ।
+        তুমি প্রাথমিকভাবে আমাদের সাথে কাজ করবে , যখন সব বুঝে যাবে এবং কাজের অভিজ্ঞতা হবে তখন তোমার সময়ের মুল্য
+        অনুসারে আমরা কথা বলে তোমাকে একটা সম্মাননা দেয়ার চেষ্টা করব , ইনশাল্লাহ।তবে এক্ষেত্রে আমাদের অবশ্যই
+        পাঠশালার দিকে চিন্তা করে সবকিছু সিদ্ধান্ত নিতে হবে।
+        তাই সকল শিক্ষার্থীকে পাঠশালার উদ্দেশ্য , অবস্থা ও এর প্রতি ভালোবাসার টান বুঝে যুক্ত হওয়ার আগ্রহ প্রকাশের
+        জন্য অনুরোধ করা হল।
+
+        পাঠশালা সকল শিক্ষার্থীর সর্বোচ্চ সহায়ক হিসেবে কাজ করে যাচ্ছে,যাবে ইনশাল্লাহ।একদিন পাঠশালা তার সবগুলো
+        পরিকল্পনা বাস্তবায়ন করে দেশের শিক্ষাক্ষেত্রে এক অনন্য ভুমিকা পালন করতে পারবে,ইনশাল্লাহ।
+
+      </p>
+    </article>
+  </div>
+</div>
+
+
+{% endblock content %}
