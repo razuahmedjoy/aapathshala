@@ -9,3 +9,4 @@ from coursesapp.models.student import Students,College
 from coursesapp.models.lectureitems import LiveExam,PracticeExam,CourseMaterials,CourseVideos,ExamResults
 from coursesapp.models.library import Library, LibraryFolders
 from coursesapp.models.announcement import Announcement
+from coursesapp.models.joinus import JoinUs

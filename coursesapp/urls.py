@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 # views
 from coursesapp.views import HomepageView,coursePage, RegistrationView, LoginView, logoutview, checkout, myCourses,remove_course, CreateAccount, testview,Registerconfirm,Profile,ProfileUpdate,ForgotpasswordView,VerifyotpView,ResetpasswordView,ForgotrollView,LibraryView,AdmissionInfoView,PersonalCare,exportstudents,ProfilePicUpdate,export_as_course,CollegeList
 
+from coursesapp.views import join_us
 
 urlpatterns = [
     
@@ -21,7 +22,10 @@ urlpatterns = [
     path('library/', LibraryView, name="library" ),
     path('admission-info/', AdmissionInfoView, name="admissioninfo" ),
     path('personal-care/', PersonalCare, name="personalcare" ),
-    
+
+    #join us 
+    path('join-us/', join_us, name="join_us")
+,    
     # forgot password
     path('forgot-pass/', ForgotpasswordView, name="forgotpassword" ),
     path('verifyotp/', VerifyotpView, name="verifyotp" ),
