@@ -12,7 +12,7 @@ class JoinUsForm(forms.ModelForm):
         "full_name" : "তোমার পুরো নাম?",
         "hsc_batch": "তোমার এইচএসসি ব্যাচ?",
         "department": "তুমি কোন ডিপার্টমেন্টে কাজ করতে আগ্রহী?",
-        "your_aap_roll": "তোমার AAP-Roll?",
+        "your_aap_roll": "তোমার AAP-Roll? (রোল ভুলে গেলে কেয়ারে মেসেজ দেও/কল 01610427497)",
         "currently_studying" : "তোমার বর্তমান শিক্ষা প্রতিষ্ঠান?",
         "your_free_time": "দৈনিক তোমার কতটুক সময় ফ্রী থাকে?",
         "contact": "যোগাযোগ নাম্বার?(Ex-Mobile Number/Messenger/Telegram Link)",
