@@ -132,8 +132,9 @@ class CollegeAdmin(ImportExportModelAdmin):
     search_fields = ['name','eiin']
 
 class JoinUsAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'hsc_batch', 'department', 'your_aap_roll', 'currently_studying', 'your_free_time', 'contact', 'why_choose_us']
+    list_display = ['full_name', 'hsc_batch', 'department', 'your_aap_roll', 'currently_studying', 'your_free_time', 'contact', 'why_choose_us', 'status']
     search_fields = ['your_aap_roll', 'contact', 'full_name', 'hsc_batch']
+    list_editable = ('status',)
 
 admin.site.register(College,CollegeAdmin)
 

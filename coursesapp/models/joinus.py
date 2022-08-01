@@ -24,6 +24,13 @@ class JoinUs(models.Model):
 
     )
 
+    STATUS = (
+        ("Pending", "Pending"),
+        ("Granted", "Granted"),
+        ("Joined", "Joined")
+
+    )
+
 
     full_name = models.CharField(max_length=64)
     hsc_batch = models.CharField(max_length=64, choices=HSC_CHOICES)
@@ -33,6 +40,7 @@ class JoinUs(models.Model):
     your_free_time = models.CharField(max_length=64)
     contact = models.CharField(max_length=264)
     why_choose_us = models.TextField()
+    status = models.CharField(max_length=64, choices=STATUS, default="Pending")
 
     class Meta:
         verbose_name_plural = "Join Us"
