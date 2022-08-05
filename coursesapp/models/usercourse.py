@@ -12,3 +12,7 @@ class UserCourse(models.Model):
 
     def __str__(self):
         return f"{self.user.username}"
+    
+    
+    class Meta:
+        ordering = ('-date', )
