@@ -29,9 +29,6 @@ class Course(models.Model):
         super(Course, self).save(*args, **kwargs)
 
 
-    class Meta:
-        ordering = ('-date', )
-
 
 class Routine(models.Model):
     course = models.ForeignKey(Course, null=False, on_delete = models.CASCADE)
